@@ -1,0 +1,27 @@
+version: '3'
+services:
+  neo4j:
+    image: neo4j:3.0
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - "/opt/familyguard/neo4j/data:/data"
+      - "/opt/familyguard/neo4j/logs:/logs"
+
+  data-storage:
+    image: familyguard/data-storage
+    ports:
+     - "8081:8081"
+
+  riak:
+    image: ianbytchek/riak-cs
+    ports:
+      - "8080:8080"
+
+  postgresql:
+    image: postgres:10
+    ports:
+      - "5432:5432"
+    volumes:
+      - "/opt/familyguard/postgresql:/var/lib/postgresql"
