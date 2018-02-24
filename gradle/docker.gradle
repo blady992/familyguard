@@ -1,0 +1,6 @@
+docker {
+    dependsOn(build)
+    name "familyguard/${jar.baseName}"
+    files jar.archivePath
+    buildArgs(['JAR_FILE': "${jar.archiveName}"])
+}
