@@ -10,27 +10,26 @@ import java.io.Serializable;
 import java.util.Set;
 
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
+import static org.neo4j.ogm.annotation.Relationship.UNDIRECTED;
 
 @Data
 @NodeEntity
-public class Person implements Serializable {
-    private static final long serialVersionUID = -2570626112545200L;
+public class Event implements Serializable {
+    private static final long serialVersionUID = 4136183313750879131L;
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String name;
+    @Relationship(type = "PARTICIPATES", direction = INCOMING)
+    private Set<Person> participants;
 
-    @Relationship(type = "RELATES", direction = INCOMING)
-    private Set<Person> relatives;
-
-    @Relationship(type = "WIELDS")
+    @Relationship(type = "FEATURES")
     private Set<Artifact> artifacts;
 
-    @Relationship(type = "PARTICIPATES")
-    private Set<Event> events;
+    @Relationship(type = "RELATES", direction = UNDIRECTED)
+    private Set<Event> relatedEvents;
 
-    @Relationship(type = "CONTAINS_RESOURCE", direction = INCOMING)
+    @Relationship(type = "CONTAINS_EVENT", direction = INCOMING)
     private Set<Resource> resources;
 }
