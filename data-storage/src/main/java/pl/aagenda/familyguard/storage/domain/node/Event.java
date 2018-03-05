@@ -1,4 +1,4 @@
-package pl.aagenda.familyguard.storage.domain;
+package pl.aagenda.familyguard.storage.domain.node;
 
 import lombok.Data;
 import org.neo4j.ogm.annotation.GeneratedValue;

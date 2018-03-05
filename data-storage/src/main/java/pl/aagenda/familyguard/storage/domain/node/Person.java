@@ -1,10 +1,11 @@
-package pl.aagenda.familyguard.storage.domain;
+package pl.aagenda.familyguard.storage.domain.node;
 
 import lombok.Data;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import pl.aagenda.familyguard.storage.domain.relationship.Relative;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class Person implements Serializable {
     private String name;
 
     @Relationship(type = "RELATES", direction = INCOMING)
-    private Set<Person> relatives;
+    private Set<Relative> relatives;
 
     @Relationship(type = "WIELDS")
     private Set<Artifact> artifacts;
