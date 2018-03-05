@@ -1,18 +1,22 @@
-version: '3'
+version: '3.1'
 services:
 
   data-storage:
     image: familyguard/data-storage
     ports:
      - "8081:8081"
+    depends_on:
+      - neo4j
 
   uaa:
     image: familygaurd/uaa
     ports:
       - "9999:9999"
+    depends_on:
+      - postgresql
 
   neo4j:
-    image: neo4j:3.0
+    image: neo4j:3.3
     ports:
       - "7474:7474"
       - "7687:7687"
