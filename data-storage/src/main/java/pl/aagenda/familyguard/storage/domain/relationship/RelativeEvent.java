@@ -2,11 +2,13 @@ package pl.aagenda.familyguard.storage.domain.relationship;
 
 import lombok.Data;
 import org.neo4j.ogm.annotation.*;
-import pl.aagenda.familyguard.storage.domain.node.Person;
+import pl.aagenda.familyguard.storage.domain.node.Event;
+
+import static pl.aagenda.familyguard.storage.constants.RelationshipConstants.RELATES;
 
 @Data
-@RelationshipEntity(type = "RELATES")
-public class Relative {
+@RelationshipEntity(type = RELATES)
+public class RelativeEvent {
     @Id
     @GeneratedValue
     private Long relationshipId;
@@ -15,12 +17,12 @@ public class Relative {
     private RelativeRole role;
 
     @StartNode
-    private Person person;
+    private Event root;
 
     @EndNode
-    private Person relative;
+    private Event relative;
 
     public enum RelativeRole {
-        PARENT;
+        SIMILAR
     }
 }

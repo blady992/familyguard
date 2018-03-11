@@ -62,7 +62,8 @@
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="script">vars.put(&quot;personIter&quot;, &quot;1&quot;)
-vars.put(&quot;lastPersonId&quot;, &quot;&quot;)</stringProp>
+vars.put(&quot;lastPersonId&quot;, &quot;&quot;)
+vars.put(&quot;generationIter&quot;, &quot;0&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
@@ -75,8 +76,8 @@ vars.put(&quot;lastPersonId&quot;, &quot;&quot;)</stringProp>
               <stringProp name="scriptLanguage">groovy</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="script">vars.put(&quot;beforeLastPersonId&quot;, vars.get(&quot;lastPersonId&quot;))</stringProp>
+              <stringProp name="cacheKey">false</stringProp>
+              <stringProp name="script">vars.put(&quot;beforeLastPersonId&quot;, &quot;${lastPersonId}&quot;)</stringProp>
             </JSR223Sampler>
             <hashTree/>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create person ${personIter}" enabled="true">
@@ -86,7 +87,7 @@ vars.put(&quot;lastPersonId&quot;, &quot;&quot;)</stringProp>
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
                     <stringProp name="Argument.value">{&#xd;
-	&quot;name&quot;: &quot;Person ${personIter}&quot;&#xd;
+	&quot;name&quot;: &quot;Person ${generationIter}_${personIter}&quot;&#xd;
 }&#xd;
 </stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
@@ -128,12 +129,20 @@ vars.put(&quot;lastPersonId&quot;, &quot;&quot;)</stringProp>
               </RegexExtractor>
               <hashTree/>
             </hashTree>
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Save person_${generationIter}_${personIter} mapping to id" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">false</stringProp>
+              <stringProp name="script">vars.put(&quot;person_${generationIter}_${personIter}&quot;, &quot;${lastPersonId}&quot;)</stringProp>
+            </JSR223Sampler>
+            <hashTree/>
             <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If person is even" enabled="true">
               <stringProp name="IfController.condition">${personIter} % 2 == 0</stringProp>
               <boolProp name="IfController.evaluateAll">false</boolProp>
             </IfController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create link between person ${personIter} and one before" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create marriage between person ${personIter} and one before" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                   <collectionProp name="Arguments.arguments">
@@ -142,9 +151,9 @@ vars.put(&quot;lastPersonId&quot;, &quot;&quot;)</stringProp>
                       <stringProp name="Argument.value">{&#xd;
 	&quot;relatives&quot;: [&#xd;
 		{&#xd;
-			&quot;role&quot;: &quot;PARENT&quot;,&#xd;
+			&quot;role&quot;: &quot;MARRIAGE&quot;,&#xd;
 			&quot;relative&quot;: &quot;${dataStorageProtocol}://${dataStorageUrl}:${dataStoragePort}/people/${beforeLastPersonId}&quot;,&#xd;
-			&quot;person&quot;: &quot;${dataStorageProtocol}://${dataStorageUrl}:${dataStoragePort}/people/${lastPersonId}&quot;&#xd;
+			&quot;root&quot;: &quot;${dataStorageProtocol}://${dataStorageUrl}:${dataStoragePort}/people/${lastPersonId}&quot;&#xd;
 		}&#xd;
 	]&#xd;
 }&#xd;
@@ -194,7 +203,153 @@ vars.put(&quot;personIter&quot;, (personIter + 1) as String)</stringProp>
           <boolProp name="LoopController.continue_forever">true</boolProp>
           <stringProp name="LoopController.loops">${numberOfGenerations}</stringProp>
         </LoopController>
-        <hashTree/>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Generation setup" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">false</stringProp>
+            <stringProp name="script">generationIter = vars.get(&quot;generationIter&quot;) as int
+vars.put(&quot;parentGenerationNumber&quot;, &quot;${generationIter}&quot;)
+vars.put(&quot;generationIter&quot;, (generationIter + 1) as String)
+vars.put(&quot;personIter&quot;, &quot;1&quot;)</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+          <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Person Loop" enabled="true">
+            <boolProp name="LoopController.continue_forever">true</boolProp>
+            <stringProp name="LoopController.loops">${startingPeople}</stringProp>
+          </LoopController>
+          <hashTree>
+            <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Get random person from previous generation" enabled="true">
+              <stringProp name="maximumValue">${startingPeople}</stringProp>
+              <stringProp name="minimumValue">1</stringProp>
+              <stringProp name="outputFormat"></stringProp>
+              <boolProp name="perThread">false</boolProp>
+              <stringProp name="randomSeed"></stringProp>
+              <stringProp name="variableName">parentNumber</stringProp>
+            </RandomVariableConfig>
+            <hashTree/>
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Prepare parent number ${parentNumber} id" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">false</stringProp>
+              <stringProp name="script">vars.put(&quot;parentId&quot;, vars.get(&quot;person_${parentGenerationNumber}_${parentNumber}&quot;))</stringProp>
+            </JSR223Sampler>
+            <hashTree/>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create person ${personIter}" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;name&quot;: &quot;Person ${generationIter}_${personIter}&quot;&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain">${dataStorageUrl}</stringProp>
+              <stringProp name="HTTPSampler.port">${dataStoragePort}</stringProp>
+              <stringProp name="HTTPSampler.protocol">${dataStorageProtocol}</stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/people</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                <collectionProp name="HeaderManager.headers">
+                  <elementProp name="" elementType="Header">
+                    <stringProp name="Header.name">Content-Type</stringProp>
+                    <stringProp name="Header.value">application/json</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </HeaderManager>
+              <hashTree/>
+              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
+                <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+                <stringProp name="RegexExtractor.refname">lastPersonId</stringProp>
+                <stringProp name="RegexExtractor.regex">Location: .*\/(\d+)</stringProp>
+                <stringProp name="RegexExtractor.template">$1$</stringProp>
+                <stringProp name="RegexExtractor.default"></stringProp>
+                <stringProp name="RegexExtractor.match_number">1</stringProp>
+                <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
+              </RegexExtractor>
+              <hashTree/>
+            </hashTree>
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Save person_${generationIter}_${personIter} mapping to id" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">false</stringProp>
+              <stringProp name="script">vars.put(&quot;person_${generationIter}_${personIter}&quot;, &quot;${lastPersonId}&quot;)</stringProp>
+            </JSR223Sampler>
+            <hashTree/>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create parenthood between person ${personIter} and ${parentId}" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;relatives&quot;: [&#xd;
+		{&#xd;
+			&quot;role&quot;: &quot;PARENTHOOD&quot;,&#xd;
+			&quot;relative&quot;: &quot;${dataStorageProtocol}://${dataStorageUrl}:${dataStoragePort}/people/${parentId}&quot;,&#xd;
+			&quot;root&quot;: &quot;${dataStorageProtocol}://${dataStorageUrl}:${dataStoragePort}/people/${lastPersonId}&quot;&#xd;
+		}&#xd;
+	]&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain">${dataStorageUrl}</stringProp>
+              <stringProp name="HTTPSampler.port">${dataStoragePort}</stringProp>
+              <stringProp name="HTTPSampler.protocol">${dataStorageProtocol}</stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/people/${lastPersonId}</stringProp>
+              <stringProp name="HTTPSampler.method">PATCH</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                <collectionProp name="HeaderManager.headers">
+                  <elementProp name="" elementType="Header">
+                    <stringProp name="Header.name">Content-Type</stringProp>
+                    <stringProp name="Header.value">application/json</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </HeaderManager>
+              <hashTree/>
+            </hashTree>
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Next person" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">personIter = vars.get(&quot;personIter&quot;) as int
+vars.put(&quot;personIter&quot;, (personIter + 1) as String)</stringProp>
+            </JSR223Sampler>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
