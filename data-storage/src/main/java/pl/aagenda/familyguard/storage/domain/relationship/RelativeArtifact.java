@@ -13,16 +13,9 @@ public class RelativeArtifact {
     @GeneratedValue
     private Long relationshipId;
 
-    @Property
-    private RelativeRole role;
-
     @StartNode
     private Artifact root;
 
     @EndNode
     private Artifact relative;
-
-    public enum RelativeRole {
-        SIMILAR
-    }
 }

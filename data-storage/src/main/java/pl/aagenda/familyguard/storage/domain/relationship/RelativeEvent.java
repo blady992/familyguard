@@ -13,16 +13,9 @@ public class RelativeEvent {
     @GeneratedValue
     private Long relationshipId;
 
-    @Property
-    private RelativeRole role;
-
     @StartNode
     private Event root;
 
     @EndNode
     private Event relative;
-
-    public enum RelativeRole {
-        SIMILAR
-    }
 }

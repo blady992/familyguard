@@ -4,8 +4,6 @@ import lombok.Data;
 import org.neo4j.ogm.annotation.*;
 import pl.aagenda.familyguard.storage.domain.node.Person;
 
-import javax.validation.constraints.NotNull;
-
 import static pl.aagenda.familyguard.storage.constants.RelationshipConstants.RELATES;
 
 @Data
@@ -16,10 +14,6 @@ public class RelativePerson {
     private Long relationshipId;
 
     @Property
-    @NotNull
-    private RelativeRole role;
-
-    @Property
     private String comment;
 
     @StartNode
@@ -27,8 +21,4 @@ public class RelativePerson {
 
     @EndNode
     private Person relative;
-
-    public enum RelativeRole {
-        FATHER_OF, MOTHER_OF, CHILD_OF, HUSBAND_OF, WIFE_OF
-    }
 }
