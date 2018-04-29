@@ -13,8 +13,9 @@ import java.io.Serializable;
 import java.util.Set;
 
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
-import static org.neo4j.ogm.annotation.Relationship.UNDIRECTED;
-import static pl.aagenda.familyguard.storage.constants.RelationshipConstants.*;
+import static pl.aagenda.familyguard.storage.constants.RelationshipConstants.Person.*;
+import static pl.aagenda.familyguard.storage.constants.RelationshipConstants.RELATES;
+import static pl.aagenda.familyguard.storage.constants.RelationshipConstants.Resource.CONTAINS_PERSON;
 
 @Data
 @EqualsAndHashCode(exclude = {"relatives", "artifacts", "events", "resources"})
@@ -29,7 +30,22 @@ public class Person implements Serializable {
 
     private String name;
 
-    @Relationship(type = RELATES, direction = UNDIRECTED)
+    @Relationship(type = FATHER_OF, direction = INCOMING)
+    private Person father;
+
+    @Relationship(type = MOTHER_OF, direction = INCOMING)
+    private Person mother;
+
+    @Relationship(type = HUSBAND_OF, direction = INCOMING)
+    private Set<Person> husbands;
+
+    @Relationship(type = WIFE_OF, direction = INCOMING)
+    private Set<Person> wives;
+
+    @Relationship(type = CHILD_OF, direction = INCOMING)
+    private Set<Person> children;
+
+    @Relationship(type = RELATES)
     private Set<RelativePerson> relatives;
 
     @Relationship(type = WIELDS)
