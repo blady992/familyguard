@@ -3,7 +3,6 @@ version = '0.0.1-SNAPSHOT'
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-neo4j'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest'
 //    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
     compile group: 'org.gedcom4j', name: 'gedcom4j', version: '4.0.1'
