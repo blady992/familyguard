@@ -1,12 +1,9 @@
 package pl.aagenda.familyguard.storage.domain.node;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.PropertyGenerator;
+import lombok.*;
+import org.neo4j.ogm.annotation.*;
 import pl.aagenda.familyguard.storage.domain.relationship.RelativePerson;
 
 import java.io.Serializable;
@@ -18,16 +15,21 @@ import static pl.aagenda.familyguard.storage.constants.RelationshipConstants.REL
 import static pl.aagenda.familyguard.storage.constants.RelationshipConstants.Resource.CONTAINS_PERSON;
 
 @Data
-@EqualsAndHashCode(exclude = {"relatives", "artifacts", "events", "resources"})
-@ToString(exclude = {"relatives", "artifacts", "events", "resources"})
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode(exclude = {"relatives", "artifacts", "events", "resources", "father", "mother", "husbands", "wives"})
+@ToString(exclude = {"relatives", "artifacts", "events", "resources", "father", "mother", "husbands", "wives"})
 @NodeEntity
+@JsonIdentityInfo(generator = PropertyGenerator.class, property = "id")
 public class Person implements Serializable {
-    private static final long serialVersionUID = -2570626112545200L;
+    private static final long serialVersionUID = 4381021751140116918L;
 
     @Id
     @GeneratedValue
     private Long id;
 
+    @Property
     private String name;
 
     @Relationship(type = FATHER_OF, direction = INCOMING)

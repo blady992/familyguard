@@ -3,12 +3,10 @@ version = '0.0.1-SNAPSHOT'
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-neo4j'
-//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compile group: 'org.gedcom4j', name: 'gedcom4j', version: gedcom4j_version
 
     runtime group: 'org.springframework.boot', name: 'spring-boot-devtools'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-    testCompile group: 'io.projectreactor', name: 'reactor-test'
-    testCompile group: 'org.springframework.security', name: 'spring-security-test'
+    testCompile group: 'org.neo4j.test', name: 'neo4j-harness', version: neo4j_harness_version
 }
