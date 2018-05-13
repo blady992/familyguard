@@ -1,4 +1,4 @@
-import { Simulation, forceSimulation, forceManyBody, forceCollide, forceLink, forceCenter, forceY } from 'd3';
+import { Simulation, forceSimulation, forceManyBody, forceLink, forceCenter, forceY } from 'd3';
 import { Person } from './person';
 import { PersonNode } from './person.node';
 import { PersonLink } from './person.link';
@@ -44,8 +44,8 @@ export class PeopleGraph {
         this._simulation.nodes(nodes);
     }
 
-    private initGenerationMap(people: Person[]) {
-        const generationMap = {};
+    private initGenerationMap(people: Person[]): Map<number, number> {
+        const generationMap = new Map();
         const peopleCopy = Object.assign([], people);
         while (peopleCopy.length > 0) {
             this.generateMapRecursive(generationMap, peopleCopy[0], peopleCopy, 0);
