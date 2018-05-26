@@ -15,7 +15,8 @@ export class AppComponent {
             1
         ],
         'children': [
-            4
+            4,
+            8
         ]
     },
     {
@@ -25,7 +26,8 @@ export class AppComponent {
             0
         ],
         'children': [
-            4
+            4,
+            8
         ]
     },
     {
@@ -85,6 +87,48 @@ export class AppComponent {
         'name': 'Daughter',
         'father': 4,
         'mother': 5
+    },
+    {
+        'id': 8,
+        'name': 'Uncle',
+        'father': 0,
+        'mother': 1,
+        'wives': [
+            9
+        ],
+        'children': [
+            10
+        ]
+    },
+    {
+        'id': 9,
+        'name': 'Aunt',
+        'husbands': [
+            8
+        ],
+        'children': [
+            10
+        ]
+    },
+    {
+        'id': 10,
+        'name': 'Cousin',
+        'father': 8,
+        'mother': 9
+    },
+    {
+        'id': 11,
+        'name': 'Not related mother',
+        'children': [
+            12
+        ]
+    },
+    {
+        'id': 12,
+        'name': 'Not related child',
+        'mother': [
+            11
+        ]
     }
 ];
 }

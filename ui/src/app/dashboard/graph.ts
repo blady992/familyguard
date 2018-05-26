@@ -1,7 +1,8 @@
-import { Simulation, forceSimulation, forceManyBody, forceCollide, forceLink, forceCenter, forceY } from 'd3';
+import { Simulation, forceSimulation, forceManyBody, forceLink, forceCenter, forceY } from 'd3';
 import { Person } from './person';
 import { PersonNode } from './person.node';
 import { PersonLink } from './person.link';
+import * as _ from 'underscore';
 
 export class PeopleGraph {
     private _simulation: Simulation<any, any>;
@@ -43,26 +44,33 @@ export class PeopleGraph {
         this._simulation.nodes(nodes);
     }
 
-    private initGenerationMap(people: Person[]) {
-        const generationMap = {};
-        let lastGeneration: Person[];
-        let generation = people.filter(person => !person.children || person.children.length === 0);
-        let generationIteration = 1;
-        while (generation.length > 0) {
-            lastGeneration = generation;
-            generation = people.filter(person =>
-                lastGeneration.map(p => p.father).indexOf(person.id) >= 0 ||
-                lastGeneration.map(p => p.mother).indexOf(person.id) >= 0);
-        }
-        lastGeneration.forEach(person => generationMap[person.id] = generationIteration);
-        generationIteration++;
-        generation = lastGeneration;
-        while (generation.length > 0) {
-            generation = people.filter(person =>
-                generation.map(p => p.children).reduce((a, b) => (a || []).concat(b)).indexOf(person.id) >= 0);
-            generation.forEach(person => generationMap[person.id] = generationIteration);
-            generationIteration++;
+    private initGenerationMap(people: Person[]): Map<number, number> {
+        const generationMap = new Map();
+        const peopleCopy = Object.assign([], people);
+        while (peopleCopy.length > 0) {
+            this.generateMapRecursive(generationMap, peopleCopy[0], peopleCopy, 0);
         }
         return generationMap;
+    }
+
+    private generateMapRecursive(generationMap: any, person: Person, people: Person[], level: number) {
+        if (!people.includes(person)) {
+            return;
+        }
+        people.splice(people.indexOf(person), 1);
+        generationMap[person.id] = level;
+
+        if (person.father) {
+            this.generateMapRecursive(generationMap, people.find(p => p.id === person.father), people, level - 1);
+        }
+        if (person.mother) {
+            this.generateMapRecursive(generationMap, people.find(p => p.id === person.mother), people, level - 1);
+        }
+
+        if (person.children) {
+            person.children
+                .map(childId => people.find(p => p.id === childId))
+                .forEach(child => this.generateMapRecursive(generationMap, child, people, level + 1));
+        }
     }
 }
