@@ -3,6 +3,8 @@ services:
 
   data-storage:
     image: familyguard/data-storage
+    build:
+      context: ./data-storage
     ports:
      - "8081:8081"
     depends_on:
@@ -10,6 +12,8 @@ services:
 
   uaa:
     image: familygaurd/uaa
+    build:
+      context: ./uaa
     ports:
       - "9999:9999"
     depends_on:
@@ -23,11 +27,6 @@ services:
     volumes:
       - "/opt/familyguard/neo4j/data:/data"
       - "/opt/familyguard/neo4j/logs:/logs"
-
-  riak:
-    image: ianbytchek/riak-cs
-    ports:
-      - "8080:8080"
 
   postgresql:
     image: postgres:10
