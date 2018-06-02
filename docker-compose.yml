@@ -10,6 +10,15 @@ services:
     depends_on:
       - neo4j
 
+  artifact-storage:
+    image: familyguard/artifact-storage
+    build:
+      context: ./artifact-storage
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mongo
+
   uaa:
     image: familygaurd/uaa
     build:
@@ -27,6 +36,13 @@ services:
     volumes:
       - "/opt/familyguard/neo4j/data:/data"
       - "/opt/familyguard/neo4j/logs:/logs"
+
+  mongo:
+    image: mongo:3.2
+    ports:
+      - "27017:27017"
+    volumes:
+      - "/opt/familyguard/mongo/data:/data/db"
 
   postgresql:
     image: postgres:10
