@@ -4,6 +4,8 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: mapstruct_version
+    compileOnly group: 'org.mapstruct', name: 'mapstruct-processor', version: mapstruct_version
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testCompile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo'
 }

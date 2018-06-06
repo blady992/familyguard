@@ -2,6 +2,7 @@ package pl.aagenda.familyguard.artifactstorage.service;
 
 import com.mongodb.client.gridfs.model.GridFSFile;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
@@ -30,6 +31,7 @@ public class ArtifactService {
     }
 
     @Transactional(readOnly = true)
+    @SneakyThrows
     public ArtifactContent getArtifactContent(String id) {
         Artifact artifact = getArtifact(id);
         GridFsResource gridFsResource = gridFsTemplate.getResource(artifact.getFilename());
