@@ -4,8 +4,8 @@ import com.mongodb.client.gridfs.model.GridFSFile;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
-import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.aagenda.familyguard.artifactstorage.domain.Artifact;
@@ -21,12 +21,12 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 @Transactional
 @RequiredArgsConstructor
 public class ArtifactService {
-    private final GridFsTemplate gridFsTemplate;
+    private final GridFsOperations gridFsOperations;
     private final ArtifactMapper artifactMapper;
 
     @Transactional(readOnly = true)
     public Artifact getArtifact(String id) {
-        GridFSFile gridFSFile = gridFsTemplate.findOne(query(where("_id").is(id)));
+        GridFSFile gridFSFile = gridFsOperations.findOne(query(where("_id").is(id)));
         return artifactMapper.toArtifact(gridFSFile);
     }
 
@@ -34,12 +34,12 @@ public class ArtifactService {
     @SneakyThrows
     public ArtifactContent getArtifactContent(String id) {
         Artifact artifact = getArtifact(id);
-        GridFsResource gridFsResource = gridFsTemplate.getResource(artifact.getFilename());
+        GridFsResource gridFsResource = gridFsOperations.getResource(artifact.getFilename());
         return artifactMapper.toArtifactContent(gridFsResource);
     }
 
     public Artifact saveArtifact(InputStream content, String filename, String contentType) {
-        ObjectId id =  gridFsTemplate.store(content, filename, contentType);
+        ObjectId id =  gridFsOperations.store(content, filename, contentType);
         return getArtifact(id.toHexString());
     }
 }

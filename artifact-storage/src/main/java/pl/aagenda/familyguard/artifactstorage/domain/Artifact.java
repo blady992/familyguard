@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 @Data
@@ -15,7 +15,7 @@ import java.util.Map;
 public class Artifact {
     private String id;
     private String filename;
-    private Date uploadDate;
+    private ZonedDateTime uploadDate;
     private String contentType;
     private String contentMd5;
     private long contentLength;

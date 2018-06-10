@@ -4,16 +4,18 @@ import com.mongodb.client.gridfs.model.GridFSFile;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.http.MediaType;
 import pl.aagenda.familyguard.artifactstorage.domain.Artifact;
 import pl.aagenda.familyguard.artifactstorage.domain.ArtifactContent;
 
 import java.io.IOException;
+import java.util.Optional;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", imports = { Optional.class, MediaType.class })
 public interface ArtifactMapper {
 
     @Mapping(target = "id", expression = "java(gridFSFile.getObjectId().toHexString())")
-    @Mapping(target = "contentType", expression = "java(gridFSFile.getMetadata().get(\"_contentType\", String.class))")
+    @Mapping(target = "contentType", expression = "java(Optional.ofNullable(gridFSFile.getMetadata()).map(metadata -> metadata.get(\"_contentType\", String.class)).orElse(MediaType.APPLICATION_OCTET_STREAM_VALUE))")
     @Mapping(target = "contentLength", source = "length")
     @Mapping(target = "contentMd5", source = "MD5")
     Artifact toArtifact(GridFSFile gridFSFile);
