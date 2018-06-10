@@ -1,2 +1,3 @@
 include ':data-storage'
 include ':uaa'
+include ':artifact-storage'
