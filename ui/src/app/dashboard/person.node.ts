@@ -1,5 +1,5 @@
 import { SimulationNodeDatum } from 'd3';
-import { Person } from './person';
+import { Person } from '../people/person';
 
 export class PersonNode implements SimulationNodeDatum {
     index?: number;

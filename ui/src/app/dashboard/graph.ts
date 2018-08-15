@@ -1,5 +1,5 @@
 import {forceCenter, forceLink, forceManyBody, forceSimulation, forceY, Simulation} from 'd3';
-import {Person} from './person';
+import {Person} from '../people/person';
 import {PersonNode} from './person.node';
 import {PersonLink} from './person.link';
 
