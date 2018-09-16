@@ -1,15 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { DashboardComponent } from './dashboard.component';
-import { NodeVisualComponent } from './visuals/node-visual.component';
-import { LinkVisualComponent } from './visuals/link-visual.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {DashboardComponent} from './dashboard.component';
+import {FamilyTreeModule} from "./family-tree/family-tree.module";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FamilyTreeModule
   ],
-  declarations: [DashboardComponent, NodeVisualComponent, LinkVisualComponent],
-  exports: [DashboardComponent]
+  declarations: [DashboardComponent]
 })
-export class DashboardModule { }
+export class DashboardModule {
+}

@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Person } from '../people/person';
-import { PeopleGraph } from './graph';
+import {Component} from '@angular/core';
+import {PeopleService} from "../common/people/people.service";
+import {Person} from "../common/people/person";
 
 @Component({
   selector: 'app-dashboard',
@@ -8,20 +8,10 @@ import { PeopleGraph } from './graph';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  private _people: Person[];
-  private _graph: PeopleGraph;
+  people: Person[] = [];
 
-  @Input()
-  set people(people: Person[]) {
-    this._people = people;
-    this._graph = new PeopleGraph(this.people);
-  }
-
-  get people() {
-    return this._people;
-  }
-
-  get graph() {
-    return this._graph;
+  constructor(peopleService: PeopleService) {
+    peopleService.getPeople()
+      .subscribe(people => this.people = people);
   }
 }
