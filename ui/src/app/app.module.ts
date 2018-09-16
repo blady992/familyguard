@@ -1,12 +1,13 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
 import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from './app-routing.module';
 import {DashboardModule} from "./dashboard/dashboard.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {LayoutModule} from '@angular/cdk/layout';
+import {NavbarModule} from "./common/navbar/navbar.module";
 
 @NgModule({
   declarations: [
@@ -15,11 +16,14 @@ import {DashboardModule} from "./dashboard/dashboard.module";
   imports: [
     BrowserModule,
     HttpClientModule,
-    NgbModule.forRoot(),
+    BrowserAnimationsModule,
     DashboardModule,
     AppRoutingModule,
+    LayoutModule,
+    NavbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
