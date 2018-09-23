@@ -5,12 +5,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+import pl.aagenda.familyguard.datastorage.domain.Sex;
 import pl.aagenda.familyguard.datastorage.domain.node.Person;
 import pl.aagenda.familyguard.datastorage.service.PersonService;
+
+import java.util.List;
 
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.Api.API_V1_PATH;
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.ID_PATH_VARIABLE;
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.PEOPLE_PATH;
+import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.SEX_QUERY_PARAM;
 
 @RestController
 @RequestMapping(path = API_V1_PATH + PEOPLE_PATH)
@@ -26,6 +30,13 @@ public class PersonController {
     @GetMapping
     public Page<Person> getPeople(@PageableDefault Pageable pageable) {
         return personService.getAllPeople(pageable);
+    }
+
+    @GetMapping(params = SEX_QUERY_PARAM)
+    public List<Person> getPeople(@PageableDefault Pageable pageable, @RequestParam(SEX_QUERY_PARAM) String sex) {
+        return Sex.fromString(sex)
+                .map(personService::getAllPeopleBySex)
+                .orElseThrow(() -> new IllegalArgumentException("Illegal sex value passed: \"" + sex + "\""));
     }
 
     @PostMapping

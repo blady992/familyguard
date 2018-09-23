@@ -17,6 +17,8 @@ public final class ResourcePath {
 
     public static final String ID_PATH_VARIABLE = "/{id}";
 
+    public static final String SEX_QUERY_PARAM = "sex";
+
     private ResourcePath() {
         // INTENTIONALLY LEFT BLANK
     }

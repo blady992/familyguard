@@ -6,8 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.aagenda.familyguard.datastorage.domain.Sex;
 import pl.aagenda.familyguard.datastorage.domain.node.Person;
 import pl.aagenda.familyguard.datastorage.repository.PersonRepository;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -32,5 +35,9 @@ public class PersonService {
 
     public void deletePerson(Long id) {
         personRepository.deleteById(id);
+    }
+
+    public List<Person> getAllPeopleBySex(Sex sex) {
+        return personRepository.findAllBySex(sex);
     }
 }

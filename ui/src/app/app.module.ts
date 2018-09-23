@@ -8,6 +8,7 @@ import {DashboardModule} from "./dashboard/dashboard.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {LayoutModule} from '@angular/cdk/layout';
 import {NavbarModule} from "./common/navbar/navbar.module";
+import {PersonManagerModule} from "./person-manager/person-manager.module";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {NavbarModule} from "./common/navbar/navbar.module";
     HttpClientModule,
     BrowserAnimationsModule,
     DashboardModule,
+    PersonManagerModule,
     AppRoutingModule,
     LayoutModule,
     NavbarModule,

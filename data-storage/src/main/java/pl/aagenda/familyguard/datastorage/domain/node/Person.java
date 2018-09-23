@@ -4,30 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators.PropertyGenerator;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Property;
-import org.neo4j.ogm.annotation.Relationship;
+import lombok.*;
+import org.neo4j.ogm.annotation.*;
+import pl.aagenda.familyguard.datastorage.domain.Sex;
 import pl.aagenda.familyguard.datastorage.domain.relationship.RelativePerson;
 
 import java.io.Serializable;
 import java.util.Set;
 
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.CHILD_OF;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.FATHER_OF;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.HUSBAND_OF;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.MOTHER_OF;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.PARTICIPATES;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.WIELDS;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.WIFE_OF;
+import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.*;
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.RELATES;
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Resource.CONTAINS_PERSON;
 
@@ -49,6 +35,9 @@ public class Person implements Serializable {
 
     @Property
     private String name;
+
+    @Property
+    private Sex sex;
 
     @JsonIdentityReference(alwaysAsId=true)
     @Relationship(type = FATHER_OF, direction = INCOMING)
