@@ -1,4 +1,4 @@
-package pl.aagenda.familyguard.datastorage.web.rest.error;
+package pl.aagenda.familyguard.datastorage.error;
 
 import lombok.Data;
 

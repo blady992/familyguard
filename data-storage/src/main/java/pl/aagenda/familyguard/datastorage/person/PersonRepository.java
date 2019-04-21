@@ -1,9 +1,7 @@
-package pl.aagenda.familyguard.datastorage.repository;
+package pl.aagenda.familyguard.datastorage.person;
 
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;
-import pl.aagenda.familyguard.datastorage.domain.Sex;
-import pl.aagenda.familyguard.datastorage.domain.node.Person;
 
 import java.util.List;
 

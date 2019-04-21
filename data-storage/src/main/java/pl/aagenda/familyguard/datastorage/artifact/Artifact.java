@@ -1,4 +1,4 @@
-package pl.aagenda.familyguard.datastorage.domain.node;
+package pl.aagenda.familyguard.datastorage.artifact;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,7 +7,9 @@ import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-import pl.aagenda.familyguard.datastorage.domain.relationship.RelativeArtifact;
+import pl.aagenda.familyguard.datastorage.event.Event;
+import pl.aagenda.familyguard.datastorage.person.Person;
+import pl.aagenda.familyguard.datastorage.resource.Resource;
 
 import java.io.Serializable;
 import java.util.Set;

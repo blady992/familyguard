@@ -1,21 +1,23 @@
-package pl.aagenda.familyguard.datastorage.domain.relationship;
+package pl.aagenda.familyguard.datastorage.person;
 
 import lombok.Data;
 import org.neo4j.ogm.annotation.*;
-import pl.aagenda.familyguard.datastorage.domain.node.Event;
 
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.RELATES;
 
 @Data
 @RelationshipEntity(type = RELATES)
-public class RelativeEvent {
+public class RelativePerson {
     @Id
     @GeneratedValue
     private Long relationshipId;
 
+    @Property
+    private String comment;
+
     @StartNode
-    private Event root;
+    private Person root;
 
     @EndNode
-    private Event relative;
+    private Person relative;
 }

@@ -1,8 +1,7 @@
-package pl.aagenda.familyguard.datastorage.domain.relationship;
+package pl.aagenda.familyguard.datastorage.artifact;
 
 import lombok.Data;
 import org.neo4j.ogm.annotation.*;
-import pl.aagenda.familyguard.datastorage.domain.node.Artifact;
 
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.RELATES;
 

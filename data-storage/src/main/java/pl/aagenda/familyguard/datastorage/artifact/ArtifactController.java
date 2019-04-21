@@ -1,12 +1,10 @@
-package pl.aagenda.familyguard.datastorage.web.rest;
+package pl.aagenda.familyguard.datastorage.artifact;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-import pl.aagenda.familyguard.datastorage.domain.node.Artifact;
-import pl.aagenda.familyguard.datastorage.service.ArtifactService;
 
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.ARTIFACTS_PATH;
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.Api.API_V1_PATH;

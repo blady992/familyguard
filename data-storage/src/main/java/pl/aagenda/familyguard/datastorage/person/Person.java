@@ -1,4 +1,4 @@
-package pl.aagenda.familyguard.datastorage.domain.node;
+package pl.aagenda.familyguard.datastorage.person;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
@@ -6,8 +6,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators.PropertyGenerator;
 import lombok.*;
 import org.neo4j.ogm.annotation.*;
-import pl.aagenda.familyguard.datastorage.domain.Sex;
-import pl.aagenda.familyguard.datastorage.domain.relationship.RelativePerson;
+import pl.aagenda.familyguard.datastorage.artifact.Artifact;
+import pl.aagenda.familyguard.datastorage.event.Event;
+import pl.aagenda.familyguard.datastorage.resource.Resource;
 
 import java.io.Serializable;
 import java.util.Set;

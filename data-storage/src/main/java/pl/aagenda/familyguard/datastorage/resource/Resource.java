@@ -1,4 +1,4 @@
-package pl.aagenda.familyguard.datastorage.domain.node;
+package pl.aagenda.familyguard.datastorage.resource;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,15 +7,16 @@ import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import pl.aagenda.familyguard.datastorage.artifact.Artifact;
+import pl.aagenda.familyguard.datastorage.event.Event;
+import pl.aagenda.familyguard.datastorage.person.Person;
 
 import java.io.Serializable;
 import java.util.Set;
 
 import static org.neo4j.ogm.annotation.Relationship.UNDIRECTED;
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.RELATES;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Resource.CONTAINS_ARTIFACT;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Resource.CONTAINS_EVENT;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Resource.CONTAINS_PERSON;
+import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Resource.*;
 
 @Data
 @EqualsAndHashCode(exclude = {"people", "artifacts", "events", "resources"})
