@@ -22,13 +22,13 @@ import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(exclude = {"relatives", "artifacts", "events", "resources", "father", "mother", "husbands", "wives"})
-@ToString(exclude = {"relatives", "artifacts", "events", "resources", "father", "mother", "husbands", "wives"})
+@EqualsAndHashCode(of = {"id", "name", "sex"})
+@ToString(of = {"id", "name", "sex"})
 @NodeEntity
 @JsonIdentityInfo(generator = PropertyGenerator.class, property = "id", scope = Long.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Person implements Serializable {
-    private static final long serialVersionUID = 4381021751140116918L;
+    private static final long serialVersionUID = -8395078083306934785L;
 
     @Id
     @GeneratedValue
@@ -40,39 +40,35 @@ public class Person implements Serializable {
     @Property
     private Sex sex;
 
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIdentityReference(alwaysAsId = true)
     @Relationship(type = FATHER_OF, direction = INCOMING)
     private Person father;
 
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIdentityReference(alwaysAsId = true)
     @Relationship(type = MOTHER_OF, direction = INCOMING)
     private Person mother;
 
-    @JsonIdentityReference(alwaysAsId=true)
-    @Relationship(type = HUSBAND_OF, direction = INCOMING)
-    private Set<Person> husbands;
+    @JsonIdentityReference(alwaysAsId = true)
+    @Relationship(type = SPOUSE_OF, direction = INCOMING)
+    private Set<Person> spouses;
 
-    @JsonIdentityReference(alwaysAsId=true)
-    @Relationship(type = WIFE_OF, direction = INCOMING)
-    private Set<Person> wives;
-
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIdentityReference(alwaysAsId = true)
     @Relationship(type = CHILD_OF, direction = INCOMING)
     private Set<Person> children;
 
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIdentityReference(alwaysAsId = true)
     @Relationship(type = RELATES)
     private Set<RelativePerson> relatives;
 
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIdentityReference(alwaysAsId = true)
     @Relationship(type = WIELDS)
     private Set<Artifact> artifacts;
 
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIdentityReference(alwaysAsId = true)
     @Relationship(type = PARTICIPATES)
     private Set<Event> events;
 
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIdentityReference(alwaysAsId = true)
     @Relationship(type = CONTAINS_PERSON, direction = INCOMING)
     private Set<Resource> resources;
 }

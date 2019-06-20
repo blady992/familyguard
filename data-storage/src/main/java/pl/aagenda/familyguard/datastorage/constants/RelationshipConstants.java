@@ -5,8 +5,7 @@ public final class RelationshipConstants {
         public static final String FATHER_OF = "FATHER_OF";
         public static final String MOTHER_OF = "MOTHER_OF";
         public static final String CHILD_OF = "CHILD_OF";
-        public static final String HUSBAND_OF = "HUSBAND_OF";
-        public static final String WIFE_OF = "WIFE_OF";
+        public static final String SPOUSE_OF = "SPOUSE_OF";
         public static final String WIELDS = "WIELDS";
         public static final String PARTICIPATES = "PARTICIPATES";
     }
