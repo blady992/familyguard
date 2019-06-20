@@ -1,5 +1,6 @@
-package pl.aagenda.familyguard.datastorage.web.rest;
+package pl.aagenda.familyguard.datastorage.person;
 
+import org.assertj.core.util.Files;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,9 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.File;
 
-import static org.hamcrest.Matchers.is;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.Api.API_V1_PATH;
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.PEOPLE_PATH;
@@ -23,7 +24,7 @@ import static pl.aagenda.familyguard.datastorage.utils.Neo4jTestUtils.prepareNeo
 @SpringBootTest
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
-public class PersonControllerIntegrationTest {
+public class PersonControllerE2ETest {
 
     @Rule
     public Neo4jRule neo4jRule = prepareNeo4jServer()
@@ -39,6 +40,6 @@ public class PersonControllerIntegrationTest {
                 .andExpect(
                         status().isOk())
                 .andExpect(
-                        jsonPath("$.numberOfElements", is(8)));
+                        content().json(Files.contentOf(new File("src/test/resources/json/people.json"), UTF_8)));
     }
 }
