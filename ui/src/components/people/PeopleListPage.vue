@@ -1,11 +1,17 @@
 <template>
   <div>
     People list
-    <br />
+    <br/>
     <ul>
-      <li v-for="person in people" v-bind:key="person.id">{{person.name}}</li>
+      <router-link
+        v-for="person in people"
+        v-bind:key="person.id"
+        :to="{name: 'PersonPage', params: {id: person.id}}"
+        tag="li">
+        {{person.name}}
+      </router-link>
     </ul>
-    <router-link to="/person">Create new person</router-link>
+    <router-link :to="{name : 'NewPersonPage'}">Create new person</router-link>
   </div>
 </template>
 

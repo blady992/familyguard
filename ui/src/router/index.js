@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import LandingPage from '@/components/LandingPage';
 import PersonPage from '@/components/people/PersonPage';
 import PeopleListPage from '@/components/people/PeopleListPage';
+import NewPersonPage from '@/components/people/NewPersonPage';
 
 Vue.use(Router);
 
@@ -14,9 +15,14 @@ export default new Router({
       component: LandingPage,
     },
     {
-      path: '/person',
+      path: '/people/:id',
       name: 'PersonPage',
       component: PersonPage,
+    },
+    {
+      path: '/people/_new',
+      name: 'NewPersonPage',
+      component: NewPersonPage,
     },
     {
       path: '/people',

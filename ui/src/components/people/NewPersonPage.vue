@@ -1,15 +1,14 @@
 <template>
   <div>
-    Existing person
+    New person
   </div>
 </template>
 
 <script>
 export default {
-  name: 'PersonPage',
+  name: 'NewPersonPage',
 };
 </script>
 
 <style scoped>
-
 </style>
