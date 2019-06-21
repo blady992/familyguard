@@ -4,8 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators.PropertyGenerator;
-import lombok.*;
-import org.neo4j.ogm.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.Relationship;
 import pl.aagenda.familyguard.datastorage.artifact.Artifact;
 import pl.aagenda.familyguard.datastorage.event.Event;
 import pl.aagenda.familyguard.datastorage.resource.Resource;
@@ -14,7 +24,12 @@ import java.io.Serializable;
 import java.util.Set;
 
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.*;
+import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.CHILD_OF;
+import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.FATHER_OF;
+import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.MOTHER_OF;
+import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.PARTICIPATES;
+import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.SPOUSE_OF;
+import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.WIELDS;
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.RELATES;
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Resource.CONTAINS_PERSON;
 
@@ -41,18 +56,22 @@ public class Person implements Serializable {
     private Sex sex;
 
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonDeserialize(using = PersonDeserializer.class)
     @Relationship(type = FATHER_OF, direction = INCOMING)
     private Person father;
 
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonDeserialize(using = PersonDeserializer.class)
     @Relationship(type = MOTHER_OF, direction = INCOMING)
     private Person mother;
 
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonDeserialize(contentUsing = PersonDeserializer.class)
     @Relationship(type = SPOUSE_OF, direction = INCOMING)
     private Set<Person> spouses;
 
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonDeserialize(contentUsing = PersonDeserializer.class)
     @Relationship(type = CHILD_OF, direction = INCOMING)
     private Set<Person> children;
 
