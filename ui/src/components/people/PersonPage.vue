@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="form-group">
       <label for="personName">Name</label>
       <input type="text" class="form-control" id="personName" v-model="person.name">

@@ -1,17 +1,21 @@
 <template>
-  <div>
-    People list
-    <br/>
-    <ul>
+  <div class="container">
+    <div class="list-group">
       <router-link
+        class="list-group-item list-group-item-action"
         v-for="person in people"
         v-bind:key="person.id"
         :to="{name: 'PersonPage', params: {id: person.id}}"
-        tag="li">
+        tag="a">
         {{person.name}}
       </router-link>
-    </ul>
-    <router-link :to="{name : 'NewPersonPage'}">Create new person</router-link>
+    </div>
+    <router-link
+      class="btn btn-outline-success"
+      :to="{name : 'NewPersonPage'}"
+      tag="button">
+      Create new person
+    </router-link>
   </div>
 </template>
 
