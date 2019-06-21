@@ -11,7 +11,19 @@
         <option v-bind:value="'FEMALE'">Female</option>
       </select>
     </div>
-    <button type="button" class="btn btn-primary" v-on:click="savePerson">Submit</button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      @click="savePerson">
+      Submit
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      @click="deletePerson"
+      v-if="this.personAlreadyExists">
+      Delete
+    </button>
   </div>
 </template>
 
@@ -24,6 +36,7 @@ export default {
   props: ['id'],
   data() {
     return {
+      personAlreadyExists: false,
       person: {
         id: null,
         name: null,
@@ -33,7 +46,11 @@ export default {
   },
   methods: {
     savePerson() {
-      if (this.person.id === null) {
+      if (this.personAlreadyExists) {
+        axios.post('http://localhost:8081/api/v1/people', this.person)
+          .then(() => {
+          });
+      } else {
         axios.post('http://localhost:8081/api/v1/people', this.person)
           .then((response) => {
             this.$router.replace({
@@ -43,15 +60,20 @@ export default {
               },
             });
           });
-      } else {
-        axios.post('http://localhost:8081/api/v1/people', this.person)
-          .then(() => {
-          });
       }
+    },
+    deletePerson() {
+      axios.delete(`http://localhost:8081/api/v1/people/${this.person.id}`)
+        .then(() => {
+          this.$router.replace({
+            name: 'PeopleListPage',
+          });
+        });
     },
   },
   mounted() {
-    if (this.id || this.id === 0) {
+    this.personAlreadyExists = this.id || this.id === 0;
+    if (this.personAlreadyExists) {
       axios.get(`http://localhost:8081/api/v1/people/${this.id}`)
         .then((response) => {
           this.person = response.data;
