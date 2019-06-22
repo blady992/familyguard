@@ -3,87 +3,35 @@
   "content": [
     {
       "id": 0,
-      "name": "Grandfather by father",
-      "sex": "MALE",
-      "spouses": [
-        1
-      ],
-      "children": [
-        4
-      ]
+      "name": "Grandfather by father"
     },
     {
       "id": 1,
-      "name": "Grandmother by father",
-      "sex": "FEMALE",
-      "spouses": [
-        0
-      ],
-      "children": [
-        4
-      ]
+      "name": "Grandmother by father"
     },
     {
       "id": 2,
-      "name": "Grandfather by mother",
-      "sex": "MALE",
-      "spouses": [
-        3
-      ],
-      "children": [
-        5
-      ]
+      "name": "Grandfather by mother"
     },
     {
       "id": 3,
-      "name": "Grandmother by mother",
-      "sex": "FEMALE",
-      "spouses": [
-        2
-      ],
-      "children": [
-        5
-      ]
+      "name": "Grandmother by mother"
     },
     {
       "id": 4,
-      "name": "Father",
-      "sex": "MALE",
-      "father": 0,
-      "mother": 1,
-      "spouses": [
-        5
-      ],
-      "children": [
-        6, 7
-      ]
+      "name": "Father"
     },
     {
       "id": 5,
-      "name": "Mother",
-      "sex": "FEMALE",
-      "father": 2,
-      "mother": 3,
-      "spouses": [
-        4
-      ],
-      "children": [
-        6, 7
-      ]
+      "name": "Mother"
     },
     {
       "id": 6,
-      "name": "Son",
-      "sex": "MALE",
-      "father": 4,
-      "mother": 5
+      "name": "Son"
     },
     {
       "id": 7,
-      "name": "Daughter",
-      "sex": "FEMALE",
-      "father": 4,
-      "mother": 5
+      "name": "Daughter"
     }
   ]
 }

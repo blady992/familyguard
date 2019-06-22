@@ -7,8 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -34,7 +32,7 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
-    public List<Person> getAllPeopleBySex(Sex sex) {
-        return personRepository.findAllBySex(sex);
+    public Page<Person> getAllPeopleBySex(Sex sex, Pageable pageable) {
+        return personRepository.findAllBySex(sex, pageable);
     }
 }

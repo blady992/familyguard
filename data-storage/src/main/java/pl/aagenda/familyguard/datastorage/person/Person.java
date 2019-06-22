@@ -1,10 +1,6 @@
 package pl.aagenda.familyguard.datastorage.person;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators.PropertyGenerator;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +17,7 @@ import pl.aagenda.familyguard.datastorage.event.Event;
 import pl.aagenda.familyguard.datastorage.resource.Resource;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.CHILD_OF;
@@ -40,7 +36,6 @@ import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants
 @EqualsAndHashCode(of = {"id", "name", "sex"})
 @ToString(of = {"id", "name", "sex"})
 @NodeEntity
-@JsonIdentityInfo(generator = PropertyGenerator.class, property = "id", scope = Long.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Person implements Serializable {
     private static final long serialVersionUID = -8395078083306934785L;
@@ -55,39 +50,27 @@ public class Person implements Serializable {
     @Property
     private Sex sex;
 
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonDeserialize(using = PersonDeserializer.class)
     @Relationship(type = FATHER_OF, direction = INCOMING)
     private Person father;
 
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonDeserialize(using = PersonDeserializer.class)
     @Relationship(type = MOTHER_OF, direction = INCOMING)
     private Person mother;
 
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonDeserialize(contentUsing = PersonDeserializer.class)
     @Relationship(type = SPOUSE_OF, direction = INCOMING)
-    private Set<Person> spouses;
+    private List<Person> spouses;
 
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonDeserialize(contentUsing = PersonDeserializer.class)
     @Relationship(type = CHILD_OF, direction = INCOMING)
-    private Set<Person> children;
+    private List<Person> children;
 
-    @JsonIdentityReference(alwaysAsId = true)
     @Relationship(type = RELATES)
-    private Set<RelativePerson> relatives;
+    private List<RelativePerson> relatives;
 
-    @JsonIdentityReference(alwaysAsId = true)
     @Relationship(type = WIELDS)
-    private Set<Artifact> artifacts;
+    private List<Artifact> artifacts;
 
-    @JsonIdentityReference(alwaysAsId = true)
     @Relationship(type = PARTICIPATES)
-    private Set<Event> events;
+    private List<Event> events;
 
-    @JsonIdentityReference(alwaysAsId = true)
     @Relationship(type = CONTAINS_PERSON, direction = INCOMING)
-    private Set<Resource> resources;
+    private List<Resource> resources;
 }
