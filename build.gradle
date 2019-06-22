@@ -23,7 +23,8 @@ subprojects {
     apply from: '../gradle/plugins.gradle'
 
     dependencies {
-        compileOnly group: 'org.projectlombok', name: 'lombok', version: lombok_version
+        compileOnly group: 'org.projectlombok', name: 'lombok'
+        annotationProcessor group: 'org.projectlombok', name: 'lombok'
     }
 
     group = 'pl.aagenda.familyguard'
