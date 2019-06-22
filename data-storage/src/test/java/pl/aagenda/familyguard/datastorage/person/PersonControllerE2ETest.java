@@ -42,4 +42,14 @@ public class PersonControllerE2ETest {
                 .andExpect(
                         content().json(Files.contentOf(new File("src/test/resources/json/people.json"), UTF_8)));
     }
+
+    @Test
+    public void shouldGetPerson() throws Exception {
+        mockMvc.perform(
+                get(API_V1_PATH + PEOPLE_PATH + "/4"))
+                .andExpect(
+                        status().isOk())
+                .andExpect(
+                        content().json(Files.contentOf(new File("src/test/resources/json/person.json"), UTF_8)));
+    }
 }
