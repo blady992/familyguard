@@ -11,6 +11,24 @@
         <option v-bind:value="'FEMALE'">Female</option>
       </select>
     </div>
+    <label for="personMother">Mother</label>
+    <person-select id="personMother" v-model="person.mother"/>
+    <label for="personFather">Father</label>
+    <person-select id="personFather" v-model="person.father"/>
+    <div v-if="person.spouses">
+      <p>Spouses</p>
+      <ul>
+        <li v-for="spouse in person.spouses"
+            v-bind:key="spouse.id">{{spouse.name}}</li>
+      </ul>
+    </div>
+    <div v-if="person.children">
+      <p>Children</p>
+      <ul>
+        <li v-for="child in person.children"
+            v-bind:key="child.id">{{child.name}}</li>
+      </ul>
+    </div>
     <button
       type="button"
       class="btn btn-primary"
@@ -28,11 +46,13 @@
 </template>
 
 <script>
-
 import * as axios from 'axios';
+
+import PersonSelect from '@/components/people/PersonSelect';
 
 export default {
   name: 'PersonPage',
+  components: { PersonSelect },
   props: ['id'],
   data() {
     return {
@@ -41,6 +61,10 @@ export default {
         id: null,
         name: null,
         sex: null,
+        mother: null,
+        father: null,
+        spouses: [],
+        children: [],
       },
     };
   },
@@ -77,6 +101,8 @@ export default {
       axios.get(`http://localhost:8081/api/v1/people/${this.id}`)
         .then((response) => {
           this.person = response.data;
+          this.person.spouses = this.person.spouses || [];
+          this.person.children = this.person.children || [];
         });
     }
   },
