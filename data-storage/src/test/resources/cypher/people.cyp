@@ -9,25 +9,17 @@ CREATE (GrandfatherByFather:Person {name: 'Grandfather by father', sex: 'MALE'})
 
        (GrandfatherByFather)-[:SPOUSE_OF]->(GrandmotherByFather),
        (GrandmotherByFather)-[:SPOUSE_OF]->(GrandfatherByFather),
-       (GrandfatherByFather)-[:FATHER_OF]->(Father),
        (Father)-[:CHILD_OF]->(GrandfatherByFather),
-       (GrandmotherByFather)-[:MOTHER_OF]->(Father),
        (Father)-[:CHILD_OF]->(GrandmotherByFather),
 
        (GrandfatherByMother)-[:SPOUSE_OF]->(GrandmotherByMother),
        (GrandmotherByMother)-[:SPOUSE_OF]->(GrandfatherByMother),
-       (GrandfatherByMother)-[:FATHER_OF]->(Mother),
        (Mother)-[:CHILD_OF]->(GrandfatherByMother),
-       (GrandmotherByMother)-[:MOTHER_OF]->(Mother),
        (Mother)-[:CHILD_OF]->(GrandmotherByMother),
 
        (Father)-[:SPOUSE_OF]->(Mother),
        (Mother)-[:SPOUSE_OF]->(Father),
-       (Father)-[:FATHER_OF]->(Son),
        (Son)-[:CHILD_OF]->(Father),
-       (Mother)-[:MOTHER_OF]->(Son),
        (Son)-[:CHILD_OF]->(Mother),
-       (Father)-[:FATHER_OF]->(Daughter),
        (Daughter)-[:CHILD_OF]->(Father),
-       (Mother)-[:MOTHER_OF]->(Daughter),
        (Daughter)-[:CHILD_OF]->(Mother);
