@@ -12,10 +12,10 @@
         <button class="btn btn-outline-secondary"
                 type="button"
                 data-toggle="modal"
-                data-target="#peopleListModal">Switch</button>
+                :data-target="`#${this.id}PeopleListModal`">Switch</button>
       </div>
     </div>
-    <people-list-modal id="peopleListModal" v-on:person-selected="onPersonChange"/>
+    <people-list-modal :id="`${this.id}PeopleListModal`" v-on:person-selected="onPersonChange"/>
   </div>
 </template>
 
@@ -25,7 +25,7 @@ import PeopleListModal from '@/components/people/PeopleListModal';
 export default {
   name: 'PersonSelect',
   components: { PeopleListModal },
-  props: ['value'],
+  props: ['value', 'id'],
   data() {
     return {
       personName: '',
