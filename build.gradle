@@ -20,11 +20,21 @@ subprojects {
         maven { url "https://repo.spring.io/milestone" }
     }
 
+    ext {
+        set('springCloudVersion', "Greenwich.SR2")
+    }
+
     apply from: '../gradle/plugins.gradle'
 
     dependencies {
         compileOnly group: 'org.projectlombok', name: 'lombok'
         annotationProcessor group: 'org.projectlombok', name: 'lombok'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
     }
 
     group = 'pl.aagenda.familyguard'

@@ -71,11 +71,11 @@ export default {
   methods: {
     savePerson() {
       if (this.personAlreadyExists) {
-        axios.post('http://localhost:8081/api/v1/people', this.person)
+        axios.post('http://localhost:8080/data-storage/api/v1/people', this.person)
           .then(() => {
           });
       } else {
-        axios.post('http://localhost:8081/api/v1/people', this.person)
+        axios.post('http://localhost:8080/data-storage/api/v1/people', this.person)
           .then((response) => {
             this.$router.replace({
               name: 'PersonPage',
@@ -87,7 +87,7 @@ export default {
       }
     },
     deletePerson() {
-      axios.delete(`http://localhost:8081/api/v1/people/${this.person.id}`)
+      axios.delete(`http://localhost:8080/data-storage/api/v1/people/${this.person.id}`)
         .then(() => {
           this.$router.replace({
             name: 'PeopleListPage',
@@ -98,7 +98,7 @@ export default {
   mounted() {
     this.personAlreadyExists = this.id || this.id === 0;
     if (this.personAlreadyExists) {
-      axios.get(`http://localhost:8081/api/v1/people/${this.id}`)
+      axios.get(`http://localhost:8080/data-storage/api/v1/people/${this.id}`)
         .then((response) => {
           this.person = response.data;
           this.person.spouses = this.person.spouses || [];

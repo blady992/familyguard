@@ -2,11 +2,8 @@ package pl.aagenda.familyguard.datastorage.person;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
@@ -20,6 +17,7 @@ import pl.aagenda.familyguard.datastorage.resource.Resource;
 import java.io.Serializable;
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.CHILD_OF;
@@ -32,9 +30,6 @@ import static pl.aagenda.familyguard.datastorage.person.Sex.FEMALE;
 import static pl.aagenda.familyguard.datastorage.person.Sex.MALE;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @EqualsAndHashCode(of = {"id", "name", "sex"})
 @ToString(of = {"id", "name", "sex"})
 @NodeEntity
@@ -54,25 +49,25 @@ public class Person implements Serializable {
 
     @Relationship(type = CHILD_OF)
     @JsonIgnore
-    private List<Person> parents;
+    private List<Person> parents = newArrayList();
 
     @Relationship(type = SPOUSE_OF, direction = INCOMING)
-    private List<Person> spouses;
+    private List<Person> spouses = newArrayList();
 
     @Relationship(type = CHILD_OF, direction = INCOMING)
-    private List<Person> children;
+    private List<Person> children = newArrayList();
 
     @Relationship(type = RELATES)
-    private List<RelativePerson> relatives;
+    private List<RelativePerson> relatives = newArrayList();
 
     @Relationship(type = WIELDS)
-    private List<Artifact> artifacts;
+    private List<Artifact> artifacts = newArrayList();
 
     @Relationship(type = PARTICIPATES)
-    private List<Event> events;
+    private List<Event> events = newArrayList();
 
     @Relationship(type = CONTAINS_PERSON, direction = INCOMING)
-    private List<Resource> resources;
+    private List<Resource> resources = newArrayList();
 
     public Person getFather() {
         return parents.stream()

@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     fetchPeople(pageNumber) {
-      axios.get('http://localhost:8081/api/v1/people', {
+      axios.get('http://localhost:8080/data-storage/api/v1/people', {
         params: {
           page: pageNumber - 1,
         },

@@ -10,6 +10,8 @@ dependencies {
     compileOnly group: 'org.mapstruct', name: 'mapstruct-processor', version: mapstruct_version
     annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: mapstruct_version
 
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
     runtime group: 'org.springframework.boot', name: 'spring-boot-devtools'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testCompile group: 'org.neo4j.test', name: 'neo4j-harness', version: neo4j_harness_version
