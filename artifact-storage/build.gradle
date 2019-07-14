@@ -1,11 +1,16 @@
 version = '0.0.1-SNAPSHOT'
 
 dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-    compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: mapstruct_version
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+
+    implementation group: 'org.mapstruct', name: 'mapstruct-jdk8', version: mapstruct_version
     compileOnly group: 'org.mapstruct', name: 'mapstruct-processor', version: mapstruct_version
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-    testCompile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo'
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: mapstruct_version
+    
+    implementation group: 'commons-io', name: 'commons-io', version: commons_io_version
+
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    testImplementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo'
 }
