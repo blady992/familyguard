@@ -2,6 +2,6 @@ version = '0.0.1-SNAPSHOT'
 
 dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-zookeeper-discovery'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
