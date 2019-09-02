@@ -8,16 +8,15 @@ import pl.aagenda.familyguard.datastorage.artifact.Artifact;
 import pl.aagenda.familyguard.datastorage.event.Event;
 import pl.aagenda.familyguard.datastorage.resource.Resource;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonEntity implements Serializable {
-    protected static final long serialVersionUID = -7019386139389493773L;
+public class PersonEntity {
 
     protected Long id;
 
@@ -25,11 +24,19 @@ public class PersonEntity implements Serializable {
 
     protected Sex sex;
 
-    protected Map<String, List<PersonEntity>> relatives;
+    protected PersonEntity father;
 
-    protected List<Artifact> artifacts;
+    protected PersonEntity mother;
 
-    protected List<Event> events;
+    @Builder.Default
+    protected List<PersonEntity> children = newArrayList();
 
-    protected List<Resource> resources;
+    @Builder.Default
+    protected List<Artifact> artifacts = newArrayList();
+
+    @Builder.Default
+    protected List<Event> events = newArrayList();
+
+    @Builder.Default
+    protected List<Resource> resources = newArrayList();
 }

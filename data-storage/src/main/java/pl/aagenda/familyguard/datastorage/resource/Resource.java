@@ -16,7 +16,9 @@ import java.util.Set;
 
 import static org.neo4j.ogm.annotation.Relationship.UNDIRECTED;
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.RELATES;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Resource.*;
+import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Resource.CONTAINS_ARTIFACT;
+import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Resource.CONTAINS_EVENT;
+import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Resource.CONTAINS_PERSON;
 
 @Data
 @EqualsAndHashCode(exclude = {"people", "artifacts", "events", "resources"})

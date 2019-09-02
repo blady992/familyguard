@@ -2,25 +2,26 @@
   "id": 4,
   "name": "Father",
   "sex": "MALE",
-  "relatives": {
-    "PARENT": [
-      {
-        "id": 0,
-        "name": "Grandfather by father",
-        "sex": "MALE"
-      },
-      {
-        "id": 1,
-        "name": "Grandmother by father",
-        "sex": "FEMALE"
-      }
-    ],
-    "SPOUSE": [
-      {
-        "id": 5,
-        "name": "Mother",
-        "sex": "FEMALE"
-      }
-    ]
-  }
+  "father": {
+    "id": 0,
+    "name": "Grandfather by father",
+    "sex": "MALE"
+  },
+  "mother": {
+    "id": 1,
+    "name": "Grandmother by father",
+    "sex": "FEMALE"
+  },
+  "children": [
+    {
+      "id": 6,
+      "name": "Son",
+      "sex": "MALE"
+    },
+    {
+      "id": 7,
+      "name": "Daughter",
+      "sex": "FEMALE"
+    }
+  ]
 }

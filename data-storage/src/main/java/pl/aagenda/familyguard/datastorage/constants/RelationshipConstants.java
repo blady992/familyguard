@@ -2,8 +2,7 @@ package pl.aagenda.familyguard.datastorage.constants;
 
 public final class RelationshipConstants {
     public final class Person {
-        public static final String CHILD_OF = "CHILD_OF";
-        public static final String SPOUSE_OF = "SPOUSE_OF";
+        public static final String PARENT_OF = "PARENT_OF";
         public static final String WIELDS = "WIELDS";
         public static final String PARTICIPATES = "PARTICIPATES";
     }

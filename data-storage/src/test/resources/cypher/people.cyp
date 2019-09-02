@@ -7,19 +7,13 @@ CREATE (GrandfatherByFather:Person {name: 'Grandfather by father', sex: 'MALE'})
        (Son:Person {name: 'Son', sex: 'MALE'}),
        (Daughter:Person {name: 'Daughter', sex: 'FEMALE'}),
 
-       (GrandfatherByFather)-[:RELATES {name: 'SPOUSE'}]->(GrandmotherByFather),
-       (GrandmotherByFather)-[:RELATES {name: 'SPOUSE'}]->(GrandfatherByFather),
-       (Father)<-[:RELATES {name: 'PARENT'}]-(GrandfatherByFather),
-       (Father)<-[:RELATES {name: 'PARENT'}]-(GrandmotherByFather),
+       (Father)<-[:PARENT_OF]-(GrandfatherByFather),
+       (Father)<-[:PARENT_OF]-(GrandmotherByFather),
 
-       (GrandfatherByMother)-[:RELATES {name: 'SPOUSE'}]->(GrandmotherByMother),
-       (GrandmotherByMother)-[:RELATES {name: 'SPOUSE'}]->(GrandfatherByMother),
-       (Mother)<-[:RELATES {name: 'PARENT'}]-(GrandfatherByMother),
-       (Mother)<-[:RELATES {name: 'PARENT'}]-(GrandmotherByMother),
+       (Mother)<-[:PARENT_OF]-(GrandfatherByMother),
+       (Mother)<-[:PARENT_OF]-(GrandmotherByMother),
 
-       (Father)-[:RELATES {name: 'SPOUSE'}]->(Mother),
-       (Mother)-[:RELATES {name: 'SPOUSE'}]->(Father),
-       (Son)<-[:RELATES {name: 'PARENT'}]-(Father),
-       (Son)<-[:RELATES {name: 'PARENT'}]-(Mother),
-       (Daughter)<-[:RELATES {name: 'PARENT'}]-(Father),
-       (Daughter)<-[:RELATES {name: 'PARENT'}]-(Mother);
+       (Son)<-[:PARENT_OF]-(Father),
+       (Son)<-[:PARENT_OF]-(Mother),
+       (Daughter)<-[:PARENT_OF]-(Father),
+       (Daughter)<-[:PARENT_OF]-(Mother);

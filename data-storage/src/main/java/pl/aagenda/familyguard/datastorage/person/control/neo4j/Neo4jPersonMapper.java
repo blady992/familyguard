@@ -4,7 +4,7 @@ import pl.aagenda.familyguard.datastorage.person.entity.PersonEntity;
 import pl.aagenda.familyguard.datastorage.person.entity.neo4j.Person;
 
 public interface Neo4jPersonMapper {
-    Person toPerson(PersonEntity personEntity);
+    Person toPerson(PersonEntity personEntity, CyclicGraphContext cyclicGraphContext);
 
-    PersonEntity toPersonEntity(Person person);
+    PersonEntity toPersonEntity(Person person, CyclicGraphContext cyclicGraphContext);
 }

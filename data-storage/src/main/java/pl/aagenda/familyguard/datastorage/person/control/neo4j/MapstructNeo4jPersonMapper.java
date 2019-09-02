@@ -1,61 +1,34 @@
 package pl.aagenda.familyguard.datastorage.person.control.neo4j;
 
-import com.google.common.collect.ImmutableMap;
-import io.vavr.collection.Stream;
-import org.mapstruct.AfterMapping;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 import pl.aagenda.familyguard.datastorage.person.entity.PersonEntity;
 import pl.aagenda.familyguard.datastorage.person.entity.neo4j.Person;
-import pl.aagenda.familyguard.datastorage.person.entity.neo4j.RelativePerson;
 
-import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import static org.mapstruct.ReportingPolicy.ERROR;
+import static pl.aagenda.familyguard.datastorage.person.entity.Sex.FEMALE;
+import static pl.aagenda.familyguard.datastorage.person.entity.Sex.MALE;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ERROR)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ERROR, imports = {Arrays.class, Objects.class, Collectors.class, Collections.class, Optional.class})
 public abstract class MapstructNeo4jPersonMapper implements Neo4jPersonMapper {
 
-    @Override
-    @Mapping(target = "relatives", ignore = true)
-    public abstract Person toPerson(PersonEntity personEntity);
+    protected static final Predicate<Person> FATHER_PREDICATE = person -> person.getSex() == MALE;
+    protected static final Predicate<Person> MOTHER_PREDICATE = person -> person.getSex() == FEMALE;
 
     @Override
-    @Mapping(target = "relatives", ignore = true)
-    public abstract PersonEntity toPersonEntity(Person person);
+    @Mapping(target = "parents", expression = "java(Arrays.asList(personEntity.getFather(), personEntity.getMother()).stream().filter(Objects::nonNull).map(parentPersonEntity -> toPerson(parentPersonEntity, cyclicGraphContext)).collect(Collectors.toList()))")
+    public abstract Person toPerson(PersonEntity personEntity, @Context CyclicGraphContext cyclicGraphContext);
 
-    @AfterMapping
-    protected void extractRelatedPeople(@MappingTarget PersonEntity mappedPersonEntity, Person person) {
-        ofNullable(person.getRelatives())
-                .ifPresent(relatives ->
-                        mappedPersonEntity.setRelatives(ImmutableMap.copyOf(
-                                Stream.ofAll(relatives)
-                                        .groupBy(RelativePerson::getName)
-                                        .mapValues(relativePeople ->
-                                                relativePeople.map(RelativePerson::getRelative)
-                                                        .map(this::toPersonEntity)
-                                                        .collect(toList()))
-                                        .toJavaMap())));
-    }
-
-    @AfterMapping
-    protected void extractRelatedPeople(@MappingTarget Person mappedPerson, PersonEntity personEntity) {
-        ofNullable(personEntity.getRelatives())
-                .ifPresent(relatives ->
-                        mappedPerson.setRelatives(relatives
-                                .entrySet()
-                                .stream()
-                                .flatMap(relativePersonEntry ->
-                                        relativePersonEntry.getValue()
-                                                .stream()
-                                                .map(relatedPersonEntity -> {
-                                                    RelativePerson relativePerson = new RelativePerson();
-                                                    relativePerson.setName(relativePersonEntry.getKey());
-                                                    relativePerson.setRoot(mappedPerson);
-                                                    relativePerson.setRelative(toPerson(relatedPersonEntity));
-                                                    return relativePerson;
-                                                }))
-                                .collect(toList())));
-    }
+    @Override
+    @Mapping(target = "father", expression = "java(Optional.ofNullable(person.getParents()).orElseGet(Collections::emptyList).stream().filter(FATHER_PREDICATE).map(father -> toPersonEntity(father, cyclicGraphContext)).findAny().orElse(null))")
+    @Mapping(target = "mother", expression = "java(Optional.ofNullable(person.getParents()).orElseGet(Collections::emptyList).stream().filter(MOTHER_PREDICATE).map(mother -> toPersonEntity(mother, cyclicGraphContext)).findAny().orElse(null))")
+    public abstract PersonEntity toPersonEntity(Person person, @Context CyclicGraphContext cyclicGraphContext);
 }

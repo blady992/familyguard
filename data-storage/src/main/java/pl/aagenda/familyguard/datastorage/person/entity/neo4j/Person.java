@@ -21,9 +21,9 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.neo4j.ogm.annotation.Relationship.INCOMING;
+import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.PARENT_OF;
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.PARTICIPATES;
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Person.WIELDS;
-import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.RELATES;
 import static pl.aagenda.familyguard.datastorage.constants.RelationshipConstants.Resource.CONTAINS_PERSON;
 
 @Data
@@ -46,15 +46,23 @@ public class Person implements Serializable {
     @Property
     private Sex sex;
 
-    @Relationship(type = RELATES)
-    private List<RelativePerson> relatives = newArrayList();
+    @Relationship(type = PARENT_OF, direction = INCOMING)
+    @Builder.Default
+    private List<Person> parents = newArrayList();
+
+    @Relationship(type = PARENT_OF)
+    @Builder.Default
+    private List<Person> children = newArrayList();
 
     @Relationship(type = WIELDS)
+    @Builder.Default
     private List<Artifact> artifacts = newArrayList();
 
     @Relationship(type = PARTICIPATES)
+    @Builder.Default
     private List<Event> events = newArrayList();
 
     @Relationship(type = CONTAINS_PERSON, direction = INCOMING)
+    @Builder.Default
     private List<Resource> resources = newArrayList();
 }

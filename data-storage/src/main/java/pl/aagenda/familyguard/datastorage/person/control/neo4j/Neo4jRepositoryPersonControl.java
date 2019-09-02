@@ -14,21 +14,21 @@ public class Neo4jRepositoryPersonControl implements PersonControl {
 
     @Override
     public PersonEntity savePerson(PersonEntity personEntity) {
-        Person person = mapper.toPerson(personEntity);
+        Person person = mapper.toPerson(personEntity, new CyclicGraphContext());
         person = repository.save(person);
-        return mapper.toPersonEntity(person);
+        return mapper.toPersonEntity(person, new CyclicGraphContext());
     }
 
     @Override
     public Iterable<PersonEntity> getPeople(int pageNumber, int pageSize) {
-        return repository.findAll(new PageRequest(pageNumber, pageSize))
-                .map(mapper::toPersonEntity);
+        return repository.findAll(new PageRequest(pageNumber, pageSize), 1)
+                .map(person -> mapper.toPersonEntity(person, new CyclicGraphContext()));
     }
 
     @Override
     public PersonEntity getPerson(long id) {
         return repository.findById(id, 1)
-                .map(mapper::toPersonEntity)
+                .map(person -> mapper.toPersonEntity(person, new CyclicGraphContext()))
                 .orElse(null);
     }
 
