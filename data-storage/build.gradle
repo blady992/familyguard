@@ -10,6 +10,8 @@ dependencies {
     compileOnly group: 'org.mapstruct', name: 'mapstruct-processor', version: mapstruct_version
     annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: mapstruct_version
 
+    implementation group: 'io.vavr', name: 'vavr', version: vavr_version
+
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
     runtime group: 'org.springframework.boot', name: 'spring-boot-devtools'

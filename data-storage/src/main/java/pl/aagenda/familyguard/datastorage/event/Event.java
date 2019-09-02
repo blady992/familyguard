@@ -8,7 +8,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import pl.aagenda.familyguard.datastorage.artifact.Artifact;
-import pl.aagenda.familyguard.datastorage.person.Person;
+import pl.aagenda.familyguard.datastorage.person.entity.neo4j.Person;
 import pl.aagenda.familyguard.datastorage.resource.Resource;
 
 import java.io.Serializable;
