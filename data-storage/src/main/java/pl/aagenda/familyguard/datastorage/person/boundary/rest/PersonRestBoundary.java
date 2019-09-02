@@ -1,7 +1,7 @@
 package pl.aagenda.familyguard.datastorage.person.boundary.rest;
 
-import io.vavr.collection.Stream;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,9 +16,7 @@ import pl.aagenda.familyguard.datastorage.person.control.PersonControl;
 import pl.aagenda.familyguard.datastorage.person.entity.PersonEntity;
 
 import javax.validation.Valid;
-import java.util.List;
 
-import static java.util.stream.Collectors.toList;
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.Api.API_V1_PATH;
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.ID_PATH_VARIABLE;
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.PEOPLE_PATH;
@@ -31,10 +29,9 @@ public class PersonRestBoundary implements PersonBoundary {
     private final PersonRestMapper mapper;
 
     @GetMapping
-    public List<PersonRestDTO> getPeople(@PageableDefault Pageable pageable) {
-        return Stream.ofAll(getPeople(pageable.getPageNumber(), pageable.getPageSize()))
-                .map(mapper::toDto)
-                .collect(toList());
+    public Page<PersonRestDTO> getPeopleDtos(@PageableDefault Pageable pageable) {
+        return getPeople(pageable)
+                .map(mapper::toDto);
     }
 
     @GetMapping(ID_PATH_VARIABLE)
@@ -54,8 +51,8 @@ public class PersonRestBoundary implements PersonBoundary {
     }
 
     @Override
-    public Iterable<PersonEntity> getPeople(int pageNumber, int pageSize) {
-        return personControl.getPeople(pageNumber, pageSize);
+    public Page<PersonEntity> getPeople(Pageable pageable) {
+        return personControl.getPeople(pageable);
     }
 
     @Override

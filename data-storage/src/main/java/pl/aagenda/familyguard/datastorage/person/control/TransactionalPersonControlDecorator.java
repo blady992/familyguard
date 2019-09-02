@@ -1,6 +1,8 @@
 package pl.aagenda.familyguard.datastorage.person.control;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import pl.aagenda.familyguard.datastorage.person.entity.PersonEntity;
 
@@ -16,8 +18,8 @@ public class TransactionalPersonControlDecorator implements PersonControl {
 
     @Override
     @Transactional(readOnly = true)
-    public Iterable<PersonEntity> getPeople(int pageNumber, int pageSize) {
-        return delegate.getPeople(pageNumber, pageSize);
+    public Page<PersonEntity> getPeople(Pageable pageable) {
+        return delegate.getPeople(pageable);
     }
 
     @Override

@@ -1,10 +1,11 @@
 package pl.aagenda.familyguard.datastorage.person.control.neo4j;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import pl.aagenda.familyguard.datastorage.person.control.PersonControl;
-import pl.aagenda.familyguard.datastorage.person.entity.neo4j.Person;
 import pl.aagenda.familyguard.datastorage.person.entity.PersonEntity;
+import pl.aagenda.familyguard.datastorage.person.entity.neo4j.Person;
 
 @RequiredArgsConstructor
 public class Neo4jRepositoryPersonControl implements PersonControl {
@@ -20,8 +21,8 @@ public class Neo4jRepositoryPersonControl implements PersonControl {
     }
 
     @Override
-    public Iterable<PersonEntity> getPeople(int pageNumber, int pageSize) {
-        return repository.findAll(new PageRequest(pageNumber, pageSize), 1)
+    public Page<PersonEntity> getPeople(Pageable pageable) {
+        return repository.findAll(pageable, 1)
                 .map(person -> mapper.toPersonEntity(person, new CyclicGraphContext()));
     }
 
