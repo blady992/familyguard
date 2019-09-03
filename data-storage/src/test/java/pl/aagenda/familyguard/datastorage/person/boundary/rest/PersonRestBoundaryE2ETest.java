@@ -1,4 +1,4 @@
-package pl.aagenda.familyguard.datastorage.person;
+package pl.aagenda.familyguard.datastorage.person.boundary.rest;
 
 import org.assertj.core.util.Files;
 import org.junit.Rule;
@@ -24,8 +24,7 @@ import static pl.aagenda.familyguard.datastorage.utils.Neo4jTestUtils.prepareNeo
 @SpringBootTest
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
-public class PersonControllerE2ETest {
-
+public class PersonRestBoundaryE2ETest {
     @Rule
     public Neo4jRule neo4jRule = prepareNeo4jServer()
             .withFixture(new File("src/test/resources/cypher/people.cyp"));

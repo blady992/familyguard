@@ -10,7 +10,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Data
 @JsonInclude(NON_NULL)
-class PersonRestDTO {
+public class PersonRestDTO {
     private Long id;
     private String name;
     private Sex sex;

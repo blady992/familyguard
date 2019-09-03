@@ -1,5 +1,6 @@
 package pl.aagenda.familyguard.datastorage.person.control.neo4j;
 
+import pl.aagenda.familyguard.datastorage.common.mapstruct.CyclicGraphContext;
 import pl.aagenda.familyguard.datastorage.person.entity.PersonEntity;
 import pl.aagenda.familyguard.datastorage.person.entity.neo4j.Person;
 

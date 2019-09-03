@@ -1,0 +1,17 @@
+{
+  "id": 0,
+  "name": "Event with location",
+  "description": "Description of event with location",
+  "location": {
+    "name": "FTIMS",
+    "latitude": 51.747237,
+    "longitude": 19.4534342
+  },
+  "participants": [
+    {
+      "id": 2,
+      "name": "First participant",
+      "sex": "MALE"
+    }
+  ]
+}

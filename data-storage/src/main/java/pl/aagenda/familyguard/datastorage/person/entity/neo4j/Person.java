@@ -12,7 +12,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.Relationship;
 import pl.aagenda.familyguard.datastorage.artifact.Artifact;
-import pl.aagenda.familyguard.datastorage.event.Event;
+import pl.aagenda.familyguard.datastorage.event.entity.neo4j.Event;
 import pl.aagenda.familyguard.datastorage.person.entity.Sex;
 import pl.aagenda.familyguard.datastorage.resource.Resource;
 

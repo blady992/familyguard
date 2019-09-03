@@ -1,4 +1,4 @@
-package pl.aagenda.familyguard.datastorage.person.control.neo4j;
+package pl.aagenda.familyguard.datastorage.common.mapstruct;
 
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.MappingTarget;

@@ -3,6 +3,7 @@ package pl.aagenda.familyguard.datastorage.person.control.neo4j;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 import org.parboiled.common.ImmutableList;
+import pl.aagenda.familyguard.datastorage.common.mapstruct.CyclicGraphContext;
 import pl.aagenda.familyguard.datastorage.person.entity.PersonEntity;
 import pl.aagenda.familyguard.datastorage.person.entity.neo4j.Person;
 
