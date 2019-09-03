@@ -1,3 +1,7 @@
+logging:
+  level:
+    pl.aagenda: DEBUG
+
 spring:
   data:
     neo4j:

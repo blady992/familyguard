@@ -12,13 +12,6 @@
     "name": "Grandmother by father",
     "sex": "FEMALE"
   },
-  "spouses": [
-    {
-      "id": 5,
-      "name": "Mother",
-      "sex": "FEMALE"
-    }
-  ],
   "children": [
     {
       "id": 6,

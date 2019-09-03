@@ -7,19 +7,13 @@ CREATE (GrandfatherByFather:Person {name: 'Grandfather by father', sex: 'MALE'})
        (Son:Person {name: 'Son', sex: 'MALE'}),
        (Daughter:Person {name: 'Daughter', sex: 'FEMALE'}),
 
-       (GrandfatherByFather)-[:SPOUSE_OF]->(GrandmotherByFather),
-       (GrandmotherByFather)-[:SPOUSE_OF]->(GrandfatherByFather),
-       (Father)-[:CHILD_OF]->(GrandfatherByFather),
-       (Father)-[:CHILD_OF]->(GrandmotherByFather),
+       (Father)<-[:PARENT_OF]-(GrandfatherByFather),
+       (Father)<-[:PARENT_OF]-(GrandmotherByFather),
 
-       (GrandfatherByMother)-[:SPOUSE_OF]->(GrandmotherByMother),
-       (GrandmotherByMother)-[:SPOUSE_OF]->(GrandfatherByMother),
-       (Mother)-[:CHILD_OF]->(GrandfatherByMother),
-       (Mother)-[:CHILD_OF]->(GrandmotherByMother),
+       (Mother)<-[:PARENT_OF]-(GrandfatherByMother),
+       (Mother)<-[:PARENT_OF]-(GrandmotherByMother),
 
-       (Father)-[:SPOUSE_OF]->(Mother),
-       (Mother)-[:SPOUSE_OF]->(Father),
-       (Son)-[:CHILD_OF]->(Father),
-       (Son)-[:CHILD_OF]->(Mother),
-       (Daughter)-[:CHILD_OF]->(Father),
-       (Daughter)-[:CHILD_OF]->(Mother);
+       (Son)<-[:PARENT_OF]-(Father),
+       (Son)<-[:PARENT_OF]-(Mother),
+       (Daughter)<-[:PARENT_OF]-(Father),
+       (Daughter)<-[:PARENT_OF]-(Mother);

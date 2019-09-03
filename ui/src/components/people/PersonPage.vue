@@ -15,13 +15,6 @@
     <person-select id="personMother" v-model="person.mother"/>
     <label for="personFather">Father</label>
     <person-select id="personFather" v-model="person.father"/>
-    <div v-if="person.spouses">
-      <p>Spouses</p>
-      <ul>
-        <li v-for="spouse in person.spouses"
-            v-bind:key="spouse.id">{{spouse.name}}</li>
-      </ul>
-    </div>
     <div v-if="person.children">
       <p>Children</p>
       <ul>

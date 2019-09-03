@@ -1,4 +1,4 @@
-package pl.aagenda.familyguard.datastorage.person;
+package pl.aagenda.familyguard.datastorage.person.entity;
 
 import java.util.Optional;
 

@@ -3,4 +3,10 @@ version = '0.0.1-SNAPSHOT'
 dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // JAX-B dependencies for JDK 9+
+    implementation "javax.xml.bind:jaxb-api:${jaxb_version}"
+    implementation "com.sun.xml.bind:jaxb-core:${jaxb_version}"
+    implementation "com.sun.xml.bind:jaxb-impl:${jaxb_version}"
+    implementation "javax.activation:activation:${javax_activation_version}"
 }

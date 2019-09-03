@@ -1,3 +1,7 @@
+logging:
+  level:
+    pl.aagenda: DEBUG
+
 server:
   port: 8081
 
