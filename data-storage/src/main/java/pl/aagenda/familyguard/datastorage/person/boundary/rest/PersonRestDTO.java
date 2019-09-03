@@ -1,12 +1,16 @@
 package pl.aagenda.familyguard.datastorage.person.boundary.rest;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import pl.aagenda.familyguard.datastorage.person.entity.Sex;
 
 import java.util.List;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 @Data
-public class PersonRestDTO {
+@JsonInclude(NON_NULL)
+class PersonRestDTO {
     private Long id;
     private String name;
     private Sex sex;
