@@ -46,7 +46,7 @@ public class PersonRestBoundary implements PersonBoundary {
     }
 
     @DeleteMapping(ID_PATH_VARIABLE)
-    public void delete(Long id) {
+    public void delete(@PathVariable Long id) {
         deletePerson(id);
     }
 
