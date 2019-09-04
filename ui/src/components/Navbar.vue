@@ -5,6 +5,9 @@
       <li class="nav-item">
         <router-link to="/people" class="nav-link">People</router-link>
       </li>
+      <li class="nav-item">
+        <router-link to="/events" class="nav-link">Events</router-link>
+      </li>
     </ul>
   </nav>
 </template>
