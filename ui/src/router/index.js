@@ -42,5 +42,10 @@ export default new Router({
       component: EventPage,
       props: true,
     },
+    {
+      path: '/events/_new',
+      name: 'NewEventPage',
+      component: EventPage,
+    },
   ],
 });

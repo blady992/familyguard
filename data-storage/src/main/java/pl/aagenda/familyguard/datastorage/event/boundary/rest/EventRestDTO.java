@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import pl.aagenda.familyguard.datastorage.event.entity.Location;
 import pl.aagenda.familyguard.datastorage.person.boundary.rest.PersonMinimalRestDTO;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
@@ -14,13 +16,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventRestDTO {
-    protected Long id;
+    private Long id;
 
-    protected String name;
+    @NotEmpty
+    private String name;
 
-    protected String description;
+    @NotEmpty
+    private String description;
 
-    protected Location location;
+    private Location location;
 
-    protected List<PersonMinimalRestDTO> participants;
+    @Valid
+    private List<PersonMinimalRestDTO> participants;
 }

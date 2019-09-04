@@ -56,7 +56,8 @@ export default {
     saveEvent() {
       if (this.eventAlreadyExists) {
         axios.post('http://localhost:8080/data-storage/api/v1/events', this.event)
-          .then(() => {
+          .then((response) => {
+            this.event = response.data;
           });
       } else {
         axios.post('http://localhost:8080/data-storage/api/v1/events', this.event)
@@ -67,6 +68,8 @@ export default {
                 id: response.data.id,
               },
             });
+            this.event = response.data;
+            this.eventAlreadyExists = true;
           });
       }
     },
@@ -74,7 +77,7 @@ export default {
       axios.delete(`http://localhost:8080/data-storage/api/v1/events/${this.event.id}`)
         .then(() => {
           this.$router.replace({
-            name: 'EventsListPage',
+            name: 'EventListPage',
           });
         });
     },

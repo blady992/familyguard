@@ -17,7 +17,7 @@
     </keep-alive>
     <router-link
       class="btn btn-outline-success"
-      :to="{name : 'NewPersonPage'}"
+      :to="{name : 'NewEventPage'}"
       tag="button">
       Create new event
     </router-link>

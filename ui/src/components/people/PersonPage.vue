@@ -65,7 +65,8 @@ export default {
     savePerson() {
       if (this.personAlreadyExists) {
         axios.post('http://localhost:8080/data-storage/api/v1/people', this.person)
-          .then(() => {
+          .then((response) => {
+            this.person = response.data;
           });
       } else {
         axios.post('http://localhost:8080/data-storage/api/v1/people', this.person)
@@ -76,6 +77,8 @@ export default {
                 id: response.data.id,
               },
             });
+            this.person = response.data;
+            this.personAlreadyExists = true;
           });
       }
     },

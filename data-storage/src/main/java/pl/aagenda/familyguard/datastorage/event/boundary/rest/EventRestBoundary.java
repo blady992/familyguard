@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.aagenda.familyguard.datastorage.event.boundary.EventBoundary;
@@ -40,10 +41,9 @@ public class EventRestBoundary implements EventBoundary {
     }
 
     @PostMapping
-    public EventRestDTO saveEvent(@Valid EventRestDTO dto) {
+    public EventRestDTO saveEvent(@Valid @RequestBody EventRestDTO dto) {
         return mapper.toDto(
-                saveEvent(
-                        mapper.toEntity(dto)));
+                saveEvent(mapper.toEntity(dto)));
     }
 
     @DeleteMapping(ID_PATH_VARIABLE)
