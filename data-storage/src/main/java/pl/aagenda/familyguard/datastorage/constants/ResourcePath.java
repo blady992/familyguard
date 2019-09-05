@@ -10,12 +10,14 @@ public final class ResourcePath {
 
     public static final String ARTIFACTS_PATH = "/artifacts";
     public static final String EVENTS_PATH = "/events";
+    public static final String PARTICIPANTS_PATH = "/participants";
     public static final String PEOPLE_PATH = "/people";
     public static final String RESOURCES_PATH = "/resources";
 
     public static final String GEDCOM_PATH = "/gedcom";
 
     public static final String ID_PATH_VARIABLE = "/{id}";
+    public static final String PARTICIPANT_ID_PATH_VARIABLE = "/{participantId}";
 
     public static final String SEX_QUERY_PARAM = "sex";
 

@@ -32,4 +32,14 @@ public class TransactionalEventControlDecorator implements EventControl {
     public void deleteEvent(long id) {
         delegate.deleteEvent(id);
     }
+
+    @Override
+    public void addParticipant(long eventId, long participantId) {
+        delegate.addParticipant(eventId, participantId);
+    }
+
+    @Override
+    public void removeParticipant(long eventId, long participantId) {
+        delegate.removeParticipant(eventId, participantId);
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,8 @@ import javax.validation.Valid;
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.Api.API_V1_PATH;
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.EVENTS_PATH;
 import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.ID_PATH_VARIABLE;
+import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.PARTICIPANTS_PATH;
+import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.PARTICIPANT_ID_PATH_VARIABLE;
 
 @RestController
 @RequestMapping(path = API_V1_PATH + EVENTS_PATH)
@@ -51,6 +54,16 @@ public class EventRestBoundary implements EventBoundary {
         deleteEvent(id);
     }
 
+    @PutMapping(ID_PATH_VARIABLE + PARTICIPANTS_PATH)
+    public void addParticipantEndpoint(@PathVariable("id") Long eventId, @RequestBody Long participantId) {
+        addParticipant(eventId, participantId);
+    }
+
+    @DeleteMapping(ID_PATH_VARIABLE + PARTICIPANTS_PATH + PARTICIPANT_ID_PATH_VARIABLE)
+    public void removeParticipantEndpoint(@PathVariable("id") Long eventId, @PathVariable("participantId") Long participantId) {
+        removeParticipant(eventId, participantId);
+    }
+
     @Override
     public EventEntity saveEvent(EventEntity event) {
         return eventControl.saveEvent(event);
@@ -69,5 +82,15 @@ public class EventRestBoundary implements EventBoundary {
     @Override
     public void deleteEvent(long id) {
         eventControl.deleteEvent(id);
+    }
+
+    @Override
+    public void addParticipant(long eventId, long participantId) {
+        eventControl.addParticipant(eventId, participantId);
+    }
+
+    @Override
+    public void removeParticipant(long eventId, long participantId) {
+        eventControl.removeParticipant(eventId, participantId);
     }
 }

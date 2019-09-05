@@ -12,4 +12,8 @@ public interface EventBoundary {
     EventEntity getEvent(long id);
 
     void deleteEvent(long id);
+
+    void addParticipant(long eventId, long participantId);
+
+    void removeParticipant(long eventId, long participantId);
 }

@@ -19,7 +19,8 @@
       <p>Children</p>
       <ul>
         <li v-for="child in person.children"
-            v-bind:key="child.id">{{child.name}}</li>
+            v-bind:key="child.id">{{child.name}}
+        </li>
       </ul>
     </div>
     <button
@@ -64,12 +65,12 @@ export default {
   methods: {
     savePerson() {
       if (this.personAlreadyExists) {
-        axios.post('http://localhost:8080/data-storage/api/v1/people', this.person)
+        axios.post('/data-storage/api/v1/people', this.person)
           .then((response) => {
             this.person = response.data;
           });
       } else {
-        axios.post('http://localhost:8080/data-storage/api/v1/people', this.person)
+        axios.post('/data-storage/api/v1/people', this.person)
           .then((response) => {
             this.$router.replace({
               name: 'PersonPage',
@@ -83,7 +84,7 @@ export default {
       }
     },
     deletePerson() {
-      axios.delete(`http://localhost:8080/data-storage/api/v1/people/${this.person.id}`)
+      axios.delete(`/data-storage/api/v1/people/${this.person.id}`)
         .then(() => {
           this.$router.replace({
             name: 'PeopleListPage',
@@ -94,7 +95,7 @@ export default {
   mounted() {
     this.personAlreadyExists = this.id || this.id === 0;
     if (this.personAlreadyExists) {
-      axios.get(`http://localhost:8080/data-storage/api/v1/people/${this.id}`)
+      axios.get(`/data-storage/api/v1/people/${this.id}`)
         .then((response) => {
           this.person = response.data;
           this.person.spouses = this.person.spouses || [];

@@ -37,4 +37,14 @@ public class Neo4jRepositoryEventControl implements EventControl {
     public void deleteEvent(long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public void addParticipant(long eventId, long participantId) {
+        repository.addParticipant(eventId, participantId);
+    }
+
+    @Override
+    public void removeParticipant(long eventId, long participantId) {
+        repository.removeParticipant(eventId, participantId);
+    }
 }

@@ -1,6 +1,7 @@
 logging:
   level:
     pl.aagenda: DEBUG
+    org.neo4j.ogm.drivers.bolt.request.BoltRequest: DEBUG
 
 server:
   port: 8081
