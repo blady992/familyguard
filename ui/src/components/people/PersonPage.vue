@@ -23,6 +23,21 @@
         </li>
       </ul>
     </div>
+    <div v-if="person.events">
+      <p>Events</p>
+      <table class="table table-hover">
+        <tbody>
+        <tr v-for="event in person.events"
+            v-bind:key="event.id">
+          <router-link tag="td"
+                       :to="{name: 'EventPage', params: {id: event.id}}"
+                       class="clickable">
+            {{event.name}}
+          </router-link>
+        </tr>
+        </tbody>
+      </table>
+    </div>
     <button
       type="button"
       class="btn btn-primary"
@@ -59,6 +74,7 @@ export default {
         father: null,
         spouses: [],
         children: [],
+        events: [],
       },
     };
   },
@@ -100,6 +116,7 @@ export default {
           this.person = response.data;
           this.person.spouses = this.person.spouses || [];
           this.person.children = this.person.children || [];
+          this.person.events = this.person.events || [];
         });
     }
   },
@@ -107,5 +124,7 @@ export default {
 </script>
 
 <style scoped>
-
+.clickable:hover {
+  cursor: pointer;
+}
 </style>
