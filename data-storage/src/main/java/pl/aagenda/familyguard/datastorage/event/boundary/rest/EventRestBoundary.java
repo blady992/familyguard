@@ -32,9 +32,9 @@ public class EventRestBoundary implements EventBoundary {
     private final EventRestMapper mapper;
 
     @GetMapping
-    public Page<EventRestDTO> getEventDtos(@PageableDefault Pageable pageable) {
+    public Page<EventMinimalRestDTO> getEventDtos(@PageableDefault Pageable pageable) {
         return getEvents(pageable)
-                .map(mapper::toDto);
+                .map(mapper::toMinimalDto);
     }
 
     @GetMapping(ID_PATH_VARIABLE)

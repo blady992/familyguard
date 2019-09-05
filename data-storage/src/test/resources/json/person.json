@@ -23,5 +23,11 @@
       "name": "Daughter",
       "sex": "FEMALE"
     }
+  ],
+  "events": [
+    {
+      "id": 8,
+      "name": "Event name"
+    }
   ]
 }

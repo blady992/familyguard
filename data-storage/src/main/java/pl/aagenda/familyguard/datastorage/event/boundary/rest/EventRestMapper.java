@@ -8,6 +8,7 @@ import pl.aagenda.familyguard.datastorage.person.boundary.rest.PersonRestMapper;
 @Mapper(config = CommonMapperConfig.class, uses = PersonRestMapper.class)
 public interface EventRestMapper {
     EventRestDTO toDto(EventEntity entity);
+    EventMinimalRestDTO toMinimalDto(EventEntity entity);
 
     EventEntity toEntity(EventRestDTO dto);
 }
