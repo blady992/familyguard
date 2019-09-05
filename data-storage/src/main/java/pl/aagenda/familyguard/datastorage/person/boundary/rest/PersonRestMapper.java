@@ -2,11 +2,10 @@ package pl.aagenda.familyguard.datastorage.person.boundary.rest;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import pl.aagenda.familyguard.datastorage.common.mapstruct.CommonMapperConfig;
 import pl.aagenda.familyguard.datastorage.person.entity.PersonEntity;
 
-import static org.mapstruct.ReportingPolicy.ERROR;
-
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ERROR)
+@Mapper(config = CommonMapperConfig.class)
 public interface PersonRestMapper {
     PersonRestDTO toDto(PersonEntity entity);
 

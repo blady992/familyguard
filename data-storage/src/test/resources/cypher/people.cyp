@@ -6,6 +6,7 @@ CREATE (GrandfatherByFather:Person {name: 'Grandfather by father', sex: 'MALE'})
        (Mother:Person {name: 'Mother', sex: 'FEMALE'}),
        (Son:Person {name: 'Son', sex: 'MALE'}),
        (Daughter:Person {name: 'Daughter', sex: 'FEMALE'}),
+       (Event:Event {name: 'Event name', description: 'Event description'}),
 
        (Father)<-[:PARENT_OF]-(GrandfatherByFather),
        (Father)<-[:PARENT_OF]-(GrandmotherByFather),
@@ -16,4 +17,7 @@ CREATE (GrandfatherByFather:Person {name: 'Grandfather by father', sex: 'MALE'})
        (Son)<-[:PARENT_OF]-(Father),
        (Son)<-[:PARENT_OF]-(Mother),
        (Daughter)<-[:PARENT_OF]-(Father),
-       (Daughter)<-[:PARENT_OF]-(Mother);
+       (Daughter)<-[:PARENT_OF]-(Mother),
+
+       (Father)-[:PARTICIPATES]->(Event),
+       (Mother)-[:PARTICIPATES]->(Event);

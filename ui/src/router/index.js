@@ -3,6 +3,8 @@ import Router from 'vue-router';
 import LandingPage from '@/components/LandingPage';
 import PersonPage from '@/components/people/PersonPage';
 import PeopleListPage from '@/components/people/PeopleListPage';
+import EventListPage from '@/components/events/EventListPage';
+import EventPage from '@/components/events/EventPage';
 
 Vue.use(Router);
 
@@ -28,6 +30,22 @@ export default new Router({
       path: '/people',
       name: 'PeopleListPage',
       component: PeopleListPage,
+    },
+    {
+      path: '/events',
+      name: 'EventListPage',
+      component: EventListPage,
+    },
+    {
+      path: '/events/:id',
+      name: 'EventPage',
+      component: EventPage,
+      props: true,
+    },
+    {
+      path: '/events/_new',
+      name: 'NewEventPage',
+      component: EventPage,
     },
   ],
 });

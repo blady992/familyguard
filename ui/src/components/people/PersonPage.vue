@@ -19,8 +19,24 @@
       <p>Children</p>
       <ul>
         <li v-for="child in person.children"
-            v-bind:key="child.id">{{child.name}}</li>
+            v-bind:key="child.id">{{child.name}}
+        </li>
       </ul>
+    </div>
+    <div v-if="person.events">
+      <p>Events</p>
+      <table class="table table-hover">
+        <tbody>
+        <tr v-for="event in person.events"
+            v-bind:key="event.id">
+          <router-link tag="td"
+                       :to="{name: 'EventPage', params: {id: event.id}}"
+                       class="clickable">
+            {{event.name}}
+          </router-link>
+        </tr>
+        </tbody>
+      </table>
     </div>
     <button
       type="button"
@@ -58,17 +74,19 @@ export default {
         father: null,
         spouses: [],
         children: [],
+        events: [],
       },
     };
   },
   methods: {
     savePerson() {
       if (this.personAlreadyExists) {
-        axios.post('http://localhost:8080/data-storage/api/v1/people', this.person)
-          .then(() => {
+        axios.post('/data-storage/api/v1/people', this.person)
+          .then((response) => {
+            this.person = response.data;
           });
       } else {
-        axios.post('http://localhost:8080/data-storage/api/v1/people', this.person)
+        axios.post('/data-storage/api/v1/people', this.person)
           .then((response) => {
             this.$router.replace({
               name: 'PersonPage',
@@ -76,11 +94,13 @@ export default {
                 id: response.data.id,
               },
             });
+            this.person = response.data;
+            this.personAlreadyExists = true;
           });
       }
     },
     deletePerson() {
-      axios.delete(`http://localhost:8080/data-storage/api/v1/people/${this.person.id}`)
+      axios.delete(`/data-storage/api/v1/people/${this.person.id}`)
         .then(() => {
           this.$router.replace({
             name: 'PeopleListPage',
@@ -91,11 +111,12 @@ export default {
   mounted() {
     this.personAlreadyExists = this.id || this.id === 0;
     if (this.personAlreadyExists) {
-      axios.get(`http://localhost:8080/data-storage/api/v1/people/${this.id}`)
+      axios.get(`/data-storage/api/v1/people/${this.id}`)
         .then((response) => {
           this.person = response.data;
           this.person.spouses = this.person.spouses || [];
           this.person.children = this.person.children || [];
+          this.person.events = this.person.events || [];
         });
     }
   },
@@ -103,5 +124,7 @@ export default {
 </script>
 
 <style scoped>
-
+.clickable:hover {
+  cursor: pointer;
+}
 </style>

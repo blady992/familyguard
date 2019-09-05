@@ -4,7 +4,7 @@ import lombok.Data;
 import pl.aagenda.familyguard.datastorage.person.entity.Sex;
 
 @Data
-class PersonMinimalRestDTO {
+public class PersonMinimalRestDTO {
     private Long id;
     private String name;
     private Sex sex;

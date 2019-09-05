@@ -3,6 +3,9 @@ package pl.aagenda.familyguard.datastorage.person.control.neo4j;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import pl.aagenda.familyguard.datastorage.common.mapstruct.CommonMapperConfig;
+import pl.aagenda.familyguard.datastorage.common.mapstruct.CyclicGraphContext;
+import pl.aagenda.familyguard.datastorage.event.control.neo4j.MapstructNeo4jEventMapper;
 import pl.aagenda.familyguard.datastorage.person.entity.PersonEntity;
 import pl.aagenda.familyguard.datastorage.person.entity.neo4j.Person;
 
@@ -13,11 +16,14 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.mapstruct.ReportingPolicy.ERROR;
 import static pl.aagenda.familyguard.datastorage.person.entity.Sex.FEMALE;
 import static pl.aagenda.familyguard.datastorage.person.entity.Sex.MALE;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ERROR, imports = {Arrays.class, Objects.class, Collectors.class, Collections.class, Optional.class})
+@Mapper(
+        config = CommonMapperConfig.class,
+        imports = {Arrays.class, Objects.class, Collectors.class, Collections.class, Optional.class},
+        uses = MapstructNeo4jEventMapper.class
+)
 public abstract class MapstructNeo4jPersonMapper implements Neo4jPersonMapper {
 
     protected static final Predicate<Person> FATHER_PREDICATE = person -> person.getSex() == MALE;

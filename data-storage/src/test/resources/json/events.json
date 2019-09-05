@@ -1,0 +1,13 @@
+{
+  "numberOfElements": 2,
+  "content": [
+    {
+      "id": 0,
+      "name": "Event with location"
+    },
+    {
+      "id": 1,
+      "name": "Event without location"
+    }
+  ]
+}

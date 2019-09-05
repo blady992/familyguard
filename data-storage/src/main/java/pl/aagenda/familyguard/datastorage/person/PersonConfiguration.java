@@ -10,10 +10,6 @@ import pl.aagenda.familyguard.datastorage.person.control.neo4j.PersonNeo4jReposi
 
 @Configuration
 public class PersonConfiguration {
-//    @Bean
-//    PersonBoundary personBoundary(PersonControl personControl) {
-//        return new PersonRestBoundary(personControl);
-//    }
 
     @Bean
     PersonControl personControl(PersonNeo4jRepository repository, Neo4jPersonMapper mapper) {
