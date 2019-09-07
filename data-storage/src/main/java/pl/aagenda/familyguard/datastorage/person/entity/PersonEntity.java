@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.aagenda.familyguard.datastorage.artifact.Artifact;
 import pl.aagenda.familyguard.datastorage.event.entity.EventEntity;
-import pl.aagenda.familyguard.datastorage.resource.Resource;
 
 import java.util.List;
 
@@ -32,11 +30,5 @@ public class PersonEntity {
     protected List<PersonEntity> children = newArrayList();
 
     @Builder.Default
-    protected List<Artifact> artifacts = newArrayList();
-
-    @Builder.Default
     protected List<EventEntity> events = newArrayList();
-
-    @Builder.Default
-    protected List<Resource> resources = newArrayList();
 }
