@@ -17,7 +17,7 @@ public class Neo4jRepositoryPersonControl implements PersonControl {
     @Override
     public PersonEntity savePerson(PersonEntity personEntity) {
         Person person = mapper.toPerson(personEntity, new CyclicGraphContext());
-        person = repository.save(person);
+        person = repository.save(person, 0);
         return mapper.toPersonEntity(person, new CyclicGraphContext());
     }
 
