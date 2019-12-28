@@ -38,7 +38,7 @@ subprojects {
     }
 
     group = 'pl.aagenda.familyguard'
-    sourceCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
 
     apply from: '../gradle/docker.gradle'
 }

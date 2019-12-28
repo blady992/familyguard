@@ -1,6 +1,9 @@
 version = '0.0.1-SNAPSHOT'
 
 dependencies {
-	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	implementation 'io.vavr:vavr:0.10.2'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'com.auth0:java-jwt:3.8.3'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
