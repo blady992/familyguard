@@ -1,7 +1,6 @@
 package pl.aagenda.familyguard.datastorage.resource;
 
 import lombok.RequiredArgsConstructor;
-import org.neo4j.ogm.exception.core.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ public class ResourceService {
     @Transactional(readOnly = true)
     public Resource getResource(Long id) {
         return resourceRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("No resource with id " + id + " found"));
+                .orElseThrow(() -> new IllegalArgumentException("No resource with id " + id + " found"));
     }
 
     @Transactional(readOnly = true)

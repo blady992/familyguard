@@ -1,7 +1,6 @@
 package pl.aagenda.familyguard.datastorage.artifact;
 
 import lombok.RequiredArgsConstructor;
-import org.neo4j.ogm.exception.core.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ public class ArtifactService {
     @Transactional(readOnly = true)
     public Artifact getArtifact(Long id) {
         return artifactRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("No artifact with id " + id + " found"));
+                .orElseThrow(() -> new IllegalArgumentException("No artifact with id " + id + " found"));
     }
 
     @Transactional(readOnly = true)

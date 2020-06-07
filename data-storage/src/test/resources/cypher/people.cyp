@@ -1,4 +1,4 @@
-CREATE (GrandfatherByFather:Person {name: 'Grandfather by father', sex: 'MALE'}),
+MERGE (GrandfatherByFather:Person {name: 'Grandfather by father', sex: 'MALE'}),
        (GrandmotherByFather:Person {name: 'Grandmother by father', sex: 'FEMALE'}),
        (GrandfatherByMother:Person {name: 'Grandfather by mother', sex: 'MALE'}),
        (GrandmotherByMother:Person {name: 'Grandmother by mother', sex: 'FEMALE'}),

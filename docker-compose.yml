@@ -29,13 +29,15 @@ services:
       - postgresql
 
   neo4j:
-    image: neo4j:3.3
+    image: neo4j:4.0
     ports:
       - "7474:7474"
       - "7687:7687"
     volumes:
-      - "/opt/familyguard/neo4j/data:/data"
+      - "/opt/familyguard/neo4j/data:/var/lib/neo4j/data"
       - "/opt/familyguard/neo4j/logs:/logs"
+    environment:
+      NEO4J_AUTH: neo4j/password
 
   mongo:
     image: mongo:3.2
