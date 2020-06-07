@@ -55,8 +55,6 @@
 </template>
 
 <script>
-import * as axios from 'axios';
-
 import PersonSelect from '@/components/people/PersonSelect';
 
 export default {
@@ -81,12 +79,12 @@ export default {
   methods: {
     savePerson() {
       if (this.personAlreadyExists) {
-        axios.post('/data-storage/api/v1/people', this.person)
+        this.$http.post('/data-storage/api/v1/people', this.person)
           .then((response) => {
             this.person = response.data;
           });
       } else {
-        axios.post('/data-storage/api/v1/people', this.person)
+        this.$http.post('/data-storage/api/v1/people', this.person)
           .then((response) => {
             this.$router.replace({
               name: 'PersonPage',
@@ -100,7 +98,7 @@ export default {
       }
     },
     deletePerson() {
-      axios.delete(`/data-storage/api/v1/people/${this.person.id}`)
+      this.$http.delete(`/data-storage/api/v1/people/${this.person.id}`)
         .then(() => {
           this.$router.replace({
             name: 'PeopleListPage',
@@ -111,7 +109,7 @@ export default {
   mounted() {
     this.personAlreadyExists = this.id || this.id === 0;
     if (this.personAlreadyExists) {
-      axios.get(`/data-storage/api/v1/people/${this.id}`)
+      this.$http.get(`/data-storage/api/v1/people/${this.id}`)
         .then((response) => {
           this.person = response.data;
           this.person.spouses = this.person.spouses || [];

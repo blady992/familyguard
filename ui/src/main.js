@@ -4,7 +4,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import * as axios from 'axios';
+import Axios from 'axios';
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,14 +17,14 @@ library.add(faTimesCircle);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-axios.defaults.baseURL = process.env.publicPath;
+Vue.prototype.$http = Axios.create({
+  baseURL: process.env.VUE_APP_ROOT_URL,
+});
 
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
   router,
-  components: { App },
-  template: '<App/>',
-});
+  render: (h) => h(App),
+}).$mount('#app');
