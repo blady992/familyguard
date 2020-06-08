@@ -16,5 +16,7 @@ dependencies {
 
     runtime group: 'org.springframework.boot', name: 'spring-boot-devtools'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-    testCompile group: 'org.neo4j.test', name: 'neo4j-harness', version: neo4j_harness_version
+    testCompile('org.neo4j.test:neo4j-harness:' + neo4j_harness_version) {
+        exclude group: 'org.slf4j'
+    }
 }
