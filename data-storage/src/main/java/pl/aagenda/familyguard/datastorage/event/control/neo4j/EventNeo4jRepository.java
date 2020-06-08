@@ -9,12 +9,12 @@ import pl.aagenda.familyguard.datastorage.event.entity.neo4j.Event;
 @Repository
 public interface EventNeo4jRepository extends Neo4jRepository<Event, Long> {
     @Query("MATCH (person:Person)-[p:PARTICIPATES]->(event:Event) " +
-            "WHERE id(person)={participantId} AND id(event)={eventId} " +
+            "WHERE id(person)=$participantId AND id(event)=$eventId " +
             "DELETE p")
     void removeParticipant(@Param("eventId") Long eventId, @Param("participantId") Long participantId);
 
     @Query("MATCH (participant:Person), (event:Event) " +
-            "WHERE id(participant) = {participantId} AND id(event) = {eventId} " +
+            "WHERE id(participant) = $participantId AND id(event) = $eventId " +
             "CREATE (participant)-[r:PARTICIPATES]->(event)")
     void addParticipant(@Param("eventId") Long eventId, @Param("participantId") Long participantId);
 }
