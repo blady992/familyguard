@@ -16,7 +16,7 @@ public class Neo4jRepositoryEventControl implements EventControl {
     @Override
     public EventEntity saveEvent(EventEntity eventEntity) {
         Event event = mapper.toEvent(eventEntity, new CyclicGraphContext());
-        event = repository.save(event);
+        event = repository.save(event, 0);
         return mapper.toEventEntity(event, new CyclicGraphContext());
     }
 
