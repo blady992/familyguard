@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import * as axios from 'axios';
 import Pagination from '@/components/utils/Pagination';
 
 export default {
@@ -42,7 +41,7 @@ export default {
   },
   methods: {
     fetchPeople(pageNumber) {
-      axios.get('http://localhost:8080/data-storage/api/v1/events', {
+      this.$http.get('http://localhost:8080/data-storage/api/v1/events', {
         params: {
           page: pageNumber - 1,
         },

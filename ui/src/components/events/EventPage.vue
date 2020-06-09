@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import * as axios from 'axios';
 import PeopleListModal from '@/components/common/PeopleListModal';
 
 export default {
@@ -71,12 +70,12 @@ export default {
   methods: {
     saveEvent() {
       if (this.eventAlreadyExists) {
-        axios.post('/data-storage/api/v1/events', this.event)
+        this.$http.post('/data-storage/api/v1/events', this.event)
           .then((response) => {
             this.event = response.data;
           });
       } else {
-        axios.post('/data-storage/api/v1/events', this.event)
+        this.$http.post('/data-storage/api/v1/events', this.event)
           .then((response) => {
             this.$router.replace({
               name: 'EventPage',
@@ -90,7 +89,7 @@ export default {
       }
     },
     deleteEvent() {
-      axios.delete(`/data-storage/api/v1/events/${this.event.id}`)
+      this.$http.delete(`/data-storage/api/v1/events/${this.event.id}`)
         .then(() => {
           this.$router.replace({
             name: 'EventListPage',
@@ -98,14 +97,14 @@ export default {
         });
     },
     deleteParticipant(participantId) {
-      axios.delete(`/data-storage/api/v1/events/${this.event.id}/participants/${participantId}`)
+      this.$http.delete(`/data-storage/api/v1/events/${this.event.id}/participants/${participantId}`)
         .then(() => {
-          this.event.participants =
-            this.event.participants.filter(person => person.id !== participantId);
+          this.event.participants = this.event.participants
+            .filter((person) => person.id !== participantId);
         });
     },
     addParticipant(participant) {
-      axios.put(`/data-storage/api/v1/events/${this.event.id}/participants`, participant.id, {
+      this.$http.put(`/data-storage/api/v1/events/${this.event.id}/participants`, participant.id, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -118,7 +117,7 @@ export default {
   mounted() {
     this.eventAlreadyExists = this.id || this.id === 0;
     if (this.eventAlreadyExists) {
-      axios.get(`/data-storage/api/v1/events/${this.id}`)
+      this.$http.get(`/data-storage/api/v1/events/${this.id}`)
         .then((response) => {
           this.event = response.data;
           this.event.participants = this.event.participants || [];

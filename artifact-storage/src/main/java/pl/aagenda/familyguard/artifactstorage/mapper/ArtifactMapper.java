@@ -17,7 +17,6 @@ public interface ArtifactMapper {
     @Mapping(target = "id", expression = "java(gridFSFile.getObjectId().toHexString())")
     @Mapping(target = "contentType", expression = "java(Optional.ofNullable(gridFSFile.getMetadata()).map(metadata -> metadata.get(\"_contentType\", String.class)).orElse(MediaType.APPLICATION_OCTET_STREAM_VALUE))")
     @Mapping(target = "contentLength", source = "length")
-    @Mapping(target = "contentMd5", source = "MD5")
     Artifact toArtifact(GridFSFile gridFSFile);
 
     @Mapping(target = "contentLength", expression = "java(gridFsResource.contentLength())")

@@ -17,7 +17,6 @@ public class Artifact {
     private String filename;
     private ZonedDateTime uploadDate;
     private String contentType;
-    private String contentMd5;
     private long contentLength;
     private Map<String, Object> metadata;
 }

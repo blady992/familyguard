@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import static pl.aagenda.familyguard.datastorage.constants.ResourcePath.PEOPLE_P
 @RestController
 @RequestMapping(path = API_V1_PATH + PEOPLE_PATH)
 @RequiredArgsConstructor
+@CrossOrigin
 public class PersonRestBoundary implements PersonBoundary {
     private final PersonControl personControl;
     private final PersonRestMapper mapper;

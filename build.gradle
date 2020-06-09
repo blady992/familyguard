@@ -21,7 +21,7 @@ subprojects {
     }
 
     ext {
-        set('springCloudVersion', "Greenwich.SR2")
+        set('springCloudVersion', "Hoxton.SR5")
     }
 
     apply from: '../gradle/plugins.gradle'

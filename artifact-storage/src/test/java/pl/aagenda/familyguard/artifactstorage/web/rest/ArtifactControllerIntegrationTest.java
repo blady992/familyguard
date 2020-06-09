@@ -44,7 +44,6 @@ import static pl.aagenda.familyguard.artifactstorage.constant.ResourcePath.*;
 @AutoConfigureMockMvc
 public class ArtifactControllerIntegrationTest {
     private static final String ARTIFACTS_BASE_PATH = API_V1_PREFIX_PATH + ARTIFACTS_PATH;
-    private static final String SMALL_PIC_MD5 = "4a35960ee77ef4f5218d776c6a67a0bb";
     private static final long MAX_OFFSET_SECONDS = 5L;
 
     @Autowired
@@ -98,7 +97,6 @@ public class ArtifactControllerIntegrationTest {
                 .andExpect(jsonPath("$.filename", is(filename)))
                 .andExpect(jsonPath("$.uploadDate", isCloseToNow()))
                 .andExpect(jsonPath("$.contentType", is(IMAGE_PNG_VALUE)))
-                .andExpect(jsonPath("$.contentMd5", is(SMALL_PIC_MD5)))
                 .andExpect(jsonPath("$.contentLength", is((int)smallPic.contentLength())))
                 .andExpect(jsonPath("$.metadata", hasEntry("_contentType", IMAGE_PNG_VALUE)));
     }
@@ -123,7 +121,7 @@ public class ArtifactControllerIntegrationTest {
     }
 
     private Matcher<String> isCloseToNow() {
-        return new BaseMatcher<String>() {
+        return new BaseMatcher<>() {
             private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(BaseMatcher.class);
 
             @Override
